@@ -1,34 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="4c0e0b543ea9141d53d9.css">
+    <link rel="icon" type="image/svg" href="d1cb03d3454eddb5d85c.svg">
     <title>To-do-app</title>
 <script defer src="index.bundle.js"></script></head>
+
 <body>
-    <div class="header"></div>
+    <div class="header">
+        <svg class="menu-icon" height="24" width="24">
+            <path
+                d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z">
+            </path>
+        </svg>
+        <div class="logo">
+            ToDoApp
+            <svg class="logo-icon" height="24" width="55">
+                <path d="M11 15 44 0 7 23 0 0 6 0ZM9 0 15 0 21 15 53 0 17 23Z">
+                </path>
+            </svg>
+        </div>
+    </div>
     <div class="main">
         <div class="menu">
             <div class="display-options">
                 <ul>
-                    <li><a href="#inbox">Inbox</a></li>
-                    <li><a href="#today">Today</a></li>
-                    <li><a href="#this-week">This week</a></li>
+                    <a href="#inbox"><li><img src="25e8de3b82dbb2f4c800.png" height="16px" width="16px">Inbox</li></a>
+                    <a href="#today"><li><img src="ee424bd948e6a83682d5.png" height="16px" width="16px">Today</li></a>
+                    <a href="#this-week"><li><img src="a15a91ec18fe5b7e5864.png" height="16px" width="16px">This week</li></a>
                 </ul>
             </div>
             <div class="project-list">
-                <h3>Projects</h3>
+                <h2>Projects</h2>
                 <ul>
-                    <li><a href="#default-project">Default project</a></li>
+                    <a href="#default-project"><li><img src="8a2fd82c4cdccb83bd84.png" height="16px" width="16px">Default project</li></a>
                 </ul>
             </div>
+            <button class="add-project-btn"><img src="d94315115b7d9c3602b7.png" height="16px" width="16px">Add project</button>
         </div>
         <div id="content"></div>
     </div>
     <div class="footer">
         Copyright &copy; 2021 Vasilii Perfilev
-        <a href="https://github.com/vasiliiperfilev"><img src="b039b2d83982c8256af3.png">
+        <a href="https://github.com/vasiliiperfilev"><img src="987334e9f782cc505f25.png">
     </div>
 </body>
+
 </html>
