@@ -8,13 +8,15 @@ const project = createProject("some project");
 const anotherItem = createTodoItem();
 const anotherProject = createProject();
 
-project.addTodo(item);
-project.addTodo(item);
-anotherProject.addTodo(anotherItem);
-anotherProject.addTodo(item);
+project.add(item);
+project.add(item);
+anotherProject.add(anotherItem);
+anotherProject.add(item);
 
-console.log(project.todoList);
-console.log(anotherProject.todoList);
+console.log(project);
+console.log(anotherProject.container);
 
-anotherProject.removeTodo(item);
-console.log(anotherProject.todoList);
+anotherProject.remove(item);
+console.log(anotherProject.container);
+console.log(anotherProject.getObjectByTitle(item.title));
+console.log(anotherProject.getObjectByTitle(anotherItem.title));

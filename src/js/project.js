@@ -1,36 +1,20 @@
-function createProject(name = "Default project") {
+import { createStructurer } from "./structurer";
+
+function createProject(title = "Default project") {
     const todoList = {};
 
-    const addTodo = (todo) => {
-        todoList[todo.title] == undefined ? todoList[todo.title] = todo : false;
-    }
+    const proto = createStructurer(todoList);
 
-    const removeTodo = (todo) => {
-        if (todoList[todo.title] != undefined) {
-            delete todoList[todo.title]
-        }
-        else {
-            return false;
-        }
-    }
-
-    return {
-        get name() {
-            return name;
+    return Object.assign({}, proto, {
+        get title() {
+            return title;
         },
 
-        set name(newName){
-            name = newName;
+        set title(newTitle){
+            title = newTitle;
         },
 
-        get todoList() {
-            return todoList;
-        },
-
-        addTodo,
-
-        removeTodo
-    };
+    });
 }
 
 export { createProject };
