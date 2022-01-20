@@ -38,8 +38,8 @@ function createTodoItem(title = "Default title", description = "", date = "", pr
             priority = newPriority;
         }
 
-    }
+    };
 
 }
 
-export { createTodoItem }
+export { createTodoItem };
