@@ -4,6 +4,7 @@
     --header-background-color: rgb(48, 78, 68);
     --header-font-color: whitesmoke;
     --menu-hover-background:rgb(144, 175, 160); 
+    --content-hover-background: rgb(226, 235, 230);
 }
 
 @font-face {
@@ -66,8 +67,18 @@ body {
     padding: 1em;
 }
 
-.display-options,
-.project-list  {
+#content {
+    padding: 2em 10em;
+    height: 100%;
+    width: 70%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: var(--font-color);
+}
+
+.list  {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -75,54 +86,69 @@ body {
     margin-bottom: 1em;
 }
 
-.display-options ul,
-.project-list ul {
+.list ul {
     width: 100%;
 }
 
-.display-options li,
-.project-list li {
+.list li {
     list-style: none;
     padding: 0.5em;
     border-radius: 0.5em;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
-.display-options li:hover,
-.project-list li:hover,
+.list li a {
+    width: 100%;
+}
+
+.list li:hover,
 .add-project-btn:hover {
     background-color: var(--menu-hover-background);
 }
 
-.display-options a,
-.project-list a {
+.list.todo li:hover,
+.add-todo-btn:hover {
+    background-color: var(--content-hover-background);
+}
+
+.list li:hover .remove-icon {
+    display:inline;
+}
+
+.list a {
     text-decoration: none;
     color: inherit;
 }
 
-.display-options li img,
-.project-list li img,
-.add-project-btn img {
+.list img {
     margin-right: 0.5em;
 }
 
-.project-list ul {
+.remove-icon {
+    margin-left: auto;
+    display: none;
+}
+
+.list ul {
     overflow-y: auto;
     max-height: 15em;
     flex: 1;
 }
 
-.project-list h2 {
+.list h2,
+#content h1 {
     width: 100%;
     text-align: left;
     padding-bottom: 0.5em;
 }
 
-.add-project-btn {
+.add-project-btn,
+.add-todo-btn {
     display: flex;
     align-items: center;
-    background-color: var(--background-color);
+    background-color: inherit;
     color: inherit;
     border: none;
     cursor: pointer;
@@ -130,11 +156,7 @@ body {
     padding: 0.5em;
     border-radius: 0.5em;
     font-size: inherit;
-}
-
-#content {
-    width: 70%;
-    flex: 1;
+    gap: 0.5em;
 }
 
 .footer {

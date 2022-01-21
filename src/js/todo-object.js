@@ -1,10 +1,11 @@
+import { createListObject } from "./list-object";
+import TodoIcon from "../images/unfinished-task";
+
 function createTodoItem(title = "Default title", description = "", date = "", priority = 0) {
 
-    return { 
-        
-        get title() {
-            return title;
-        },
+    const proto = createListObject("todo", title, TodoIcon);
+
+    return Object.assign({}, proto, { 
 
         get description() {
             return description;
@@ -22,10 +23,6 @@ function createTodoItem(title = "Default title", description = "", date = "", pr
             return { title, description, date, priority };
         },
 
-        set title(newTitle) {
-            title = newTitle;
-        },
-
         set description(newDescription) {
             description = newDescription;
         },
@@ -38,7 +35,7 @@ function createTodoItem(title = "Default title", description = "", date = "", pr
             priority = newPriority;
         }
 
-    };
+    });
 
 }
 

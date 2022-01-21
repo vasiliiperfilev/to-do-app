@@ -27,22 +27,40 @@
     </div>
     <div class="main">
         <div class="menu">
-            <div class="display-options">
+            <div class="list options">
                 <ul>
                     <a href="#inbox"><li><img src="25e8de3b82dbb2f4c800.png" height="16px" width="16px">Inbox</li></a>
                     <a href="#today"><li><img src="ee424bd948e6a83682d5.png" height="16px" width="16px">Today</li></a>
                     <a href="#this-week"><li><img src="a15a91ec18fe5b7e5864.png" height="16px" width="16px">This week</li></a>
                 </ul>
             </div>
-            <div class="project-list">
+            <div class="list projects">
                 <h2>Projects</h2>
                 <ul>
-                    <a href="#default-project"><li><img src="8a2fd82c4cdccb83bd84.png" height="16px" width="16px">Default project</li></a>
+                    <a class="default-project" href="#default-project">
+                        <li>
+                            <img class="list-icon" src="8a2fd82c4cdccb83bd84.png" height="16px" width="16px">
+                            <span>Default project</span>
+                            <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16px" width="16px">
+                        </li>
+                    </a>
                 </ul>
             </div>
             <button class="add-project-btn"><img src="d94315115b7d9c3602b7.png" height="16px" width="16px">Add project</button>
         </div>
-        <div id="content"></div>
+        <div id="content">
+            <h1>Project name</h1>
+            <div class="list todo">
+                <ul>
+                    <li class="default-to-do">
+                        <img class="list-icon" src="007e9867a60317af6626.png" height="16px" width="16px">
+                        <span>Some ToDo</span>
+                        <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16px" width="16px">
+                    </li>
+                </ul>
+            </div>
+            <button class="add-todo-btn"><img src="d94315115b7d9c3602b7.png" height="16px" width="16px">Add ToDo</button>
+        </div>
     </div>
     <div class="footer">
         Copyright &copy; 2021 Vasilii Perfilev
