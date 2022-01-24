@@ -1,4 +1,5 @@
 import RemoveIcon from "../images/remove-task.png";
+import AddIcon from "../images/add-icon.png";
 
 function createDomInterfacer(){
     function createListElement(object){
@@ -36,16 +37,68 @@ function createDomInterfacer(){
         parent.appendChild(createListElement(object));
     }
 
-    function removeEleventFromList(object){
+    function removeElementFromList(object){
         const parent = document.querySelector(`.list.${object.type}`);
         const child = document.querySelector(`.list.${object.type} .${object.noSpaceTitle}`);
         parent.removeChild(child);
     }
 
+    function createAddBtn(objectType) {
+        const btn = document.createElement("button");
+        btn.classList.add("add-btn", objectType);
+
+        const btnIcon = document.createElement("img");
+        btnIcon.src = AddIcon;
+        btnIcon.height = "16";
+        btnIcon.width = "16";
+
+        btn.appendChild(btnIcon);
+        btn.textContent = `Add ${objectType}`;
+
+        return btn;
+    }
+
+    function createList(object) {
+        const ul = document.createElement("ul");
+        ul.classList.add("list", object.type);
+
+        object.container.forEach(element => {
+            createListElement(element);
+            ul.appendChild(element);
+        });
+
+        return ul
+    }
+
+    function createProjectPage(project) {
+        const content = document.createElement("div");
+        content.id = "content";
+        const h1 = document.createElement("h1");
+        h1.textContent = project.title;
+
+        const ul = createList(project);
+        const addBtn = createAddBtn(project.type);
+
+        content.appendChild(h1);
+        content.appendChild(ul);
+        content.appendChild(addBtn);
+    }
+
+    function collectInput(form){
+        const parameters = {};
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach(input => {
+            parameters[input.name] = input.value;
+        })
+
+        return parameters
+    }
 
     return {
         addElementToList,
-        removeEleventFromList
+        removeElementFromList,
+        createProjectPage,
+        collectInput
     };
 }
 

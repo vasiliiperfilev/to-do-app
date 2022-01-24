@@ -1,4 +1,4 @@
-function createListObject(type, title, icon){
+function createBaseObject(type, title, icon){
 
     const noSpaceTitle = () => {
         return title.replace(/\s/g, '-')
@@ -26,4 +26,4 @@ function createListObject(type, title, icon){
     };
 }
 
-export { createListObject };
+export { createBaseObject };

@@ -5,6 +5,7 @@
     --header-font-color: whitesmoke;
     --menu-hover-background:rgb(144, 175, 160); 
     --content-hover-background: rgb(226, 235, 230);
+    --popup-btn-color: rgb(226, 235, 230);
 }
 
 @font-face {
@@ -67,17 +68,6 @@ body {
     padding: 1em;
 }
 
-#content {
-    padding: 2em 10em;
-    height: 100%;
-    width: 70%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    color: var(--font-color);
-}
-
 .list  {
     display: flex;
     justify-content: flex-start;
@@ -88,6 +78,9 @@ body {
 
 .list ul {
     width: 100%;
+    overflow-y: auto;
+    max-height: 15em;
+    flex: 1;
 }
 
 .list li {
@@ -104,12 +97,12 @@ body {
 }
 
 .list li:hover,
-.add-project-btn:hover {
+.menu .add-btn:hover {
     background-color: var(--menu-hover-background);
 }
 
 .list.todo li:hover,
-.add-todo-btn:hover {
+#content .add-btn:hover {
     background-color: var(--content-hover-background);
 }
 
@@ -131,12 +124,6 @@ body {
     display: none;
 }
 
-.list ul {
-    overflow-y: auto;
-    max-height: 15em;
-    flex: 1;
-}
-
 .list h2,
 #content h1 {
     width: 100%;
@@ -144,9 +131,7 @@ body {
     padding-bottom: 0.5em;
 }
 
-.add-project-btn,
-.add-todo-btn {
-    display: flex;
+.add-btn {
     align-items: center;
     background-color: inherit;
     color: inherit;
@@ -157,6 +142,85 @@ body {
     border-radius: 0.5em;
     font-size: inherit;
     gap: 0.5em;
+}
+
+.add-popup {
+    width: 100%;;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    gap: 0.5em;
+}
+
+.add-popup-hidden,
+.add-btn-hidden {
+    display: none;
+}
+
+.add-popup-active,
+.add-btn-active {
+    display: flex;
+}
+
+.add-popup > * {
+    width: 100%;
+}
+
+.add-popup input {
+    border-radius: 0.5em;
+    height: 3em;
+    padding: 0.5em;
+    font-size: 16px;
+    border: 0.5px solid var(--header-background-color);
+}
+
+.add-popup input:focus {
+    outline: none;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-container button {
+    width: 45%;
+    height: 3em;
+    border-radius: 0.5em;
+    font-size: 16px;
+    font-weight: bold;
+    border:none;
+    cursor: pointer;
+    color: inherit;
+}
+
+.add-btn-popup {
+    background-color: rgb(170, 255, 170);
+}
+
+.cancel-btn-popup {
+    background-color: rgb(255, 190, 190);
+}
+
+.add-btn-popup:hover {
+    background-color: rgb(144, 236, 144);
+}
+
+.cancel-btn-popup:hover {
+    background-color: #f5b2b2;
+}
+
+#content {
+    padding: 2em 10em;
+    height: 100%;
+    width: 70%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: var(--font-color);
 }
 
 .footer {

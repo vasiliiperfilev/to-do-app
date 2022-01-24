@@ -1,9 +1,9 @@
-import { createListObject } from "./list-object";
+import { createBaseObject } from "./base-object";
 import TodoIcon from "../images/unfinished-task";
 
 function createTodoItem(title = "Default title", description = "", date = "", priority = 0) {
 
-    const proto = createListObject("todo", title, TodoIcon);
+    const proto = createBaseObject("todo", title, TodoIcon);
 
     return Object.assign({}, proto, { 
 

@@ -1,12 +1,12 @@
 import { createStructurer } from "./structurer";
-import { createListObject } from "./list-object";
+import { createBaseObject } from "./base-object";
 import ProjectIcon from "../images/project.png"
 
 function createProject(title = "Default project") {
     const todoList = {};
 
     const proto1 = createStructurer(todoList);
-    const proto2 = createListObject("project", title, ProjectIcon);
+    const proto2 = createBaseObject("project", title, ProjectIcon);
 
     return Object.assign({}, proto1, proto2 );
 }
