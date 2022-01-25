@@ -22,7 +22,9 @@ function createBaseObject(type, title, icon){
             title = newTitle;
         },
 
-        noSpaceTitle
+        get noSpaceTitle() {
+            return noSpaceTitle();
+        }
     };
 }
 

@@ -2,18 +2,18 @@ import { createStructurer } from "./structurer";
 
 function createProjectStructurer() {
     const projects = {};
-    const proto = createStructurer(projects);
-    const currentProject = null;
+    const proto = createStructurer(projects, "project");
+    const activeProject = null;
 
     return Object.assign({}, proto, {
-        get currentProject() {
-            return currentProject;
+        get activeProject() {
+            return activeProject;
         },
 
-        set currentProject(title){
-            currentProject = proto.getObjectByTitle(title);
+        set activeProject(title){
+            activeProject = proto.getObjectByTitle(title);
         }
-    })
+    });
 }
 
 export { createProjectStructurer };

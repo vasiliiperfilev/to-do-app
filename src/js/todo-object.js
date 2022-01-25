@@ -1,7 +1,7 @@
 import { createBaseObject } from "./base-object";
-import TodoIcon from "../images/unfinished-task";
+import TodoIcon from "../images/unfinished-task.png";
 
-function createTodoItem(title = "Default title", description = "", date = "", priority = 0) {
+function createTodo(title = "Default title", description = "", date = "", priority = 0) {
 
     const proto = createBaseObject("todo", title, TodoIcon);
 
@@ -39,4 +39,4 @@ function createTodoItem(title = "Default title", description = "", date = "", pr
 
 }
 
-export { createTodoItem };
+export { createTodo };

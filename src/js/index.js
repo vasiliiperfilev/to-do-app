@@ -1,23 +1,10 @@
 import "../styles/index.css";
-import { createTodoItem } from "./todo-object";
-import { createProject } from "./project-object";
+import { createController } from "./controller";
 
-const item = createTodoItem("some title", "some description", "2021/12/12", 2);
-const project = createProject("some project");
-
-const anotherItem = createTodoItem();
-const anotherProject = createProject();
-
-project.add(item);
-project.add(item);
-anotherProject.add(anotherItem);
-item.title = "new title";
-anotherProject.add(item);
-
-console.log(project);
-console.log(anotherProject.container);
-
-anotherProject.remove(item);
-console.log(anotherProject.container);
-console.log(anotherProject.getObjectByTitle(item.title));
-console.log(anotherProject.getObjectByTitle(anotherItem.title));
+const a = "Default project";
+const b = a.replace(/\s/g, '-');
+console.log(b);
+const controller = createController();
+const li = document.querySelector(".default-project");
+const content = document.querySelector(".content")
+li.addEventListener("click", controller.chooseProject.bind(li, content));

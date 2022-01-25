@@ -2,6 +2,7 @@ import RemoveIcon from "../images/remove-task.png";
 import AddIcon from "../images/add-icon.png";
 
 function createDomInterfacer(){
+    
     function createListElement(object){
         const li = document.createElement("li");
         li.classList.add(object.noSpaceTitle);
@@ -19,7 +20,7 @@ function createDomInterfacer(){
         span.textContent = object.title;
     
         const removeIcon = document.createElement("img");
-        elemIcon.classList.add("remove-icon");
+        removeIcon.classList.add("remove-icon");
         removeIcon.src = RemoveIcon;
         removeIcon.height = "16";
         removeIcon.width = "16";
@@ -30,6 +31,22 @@ function createDomInterfacer(){
         li.appendChild(removeIcon);
     
         return li;
+    }
+
+
+    function createList(object) {
+        const div = document.createElement("div");
+        const ul = document.createElement("ul");
+        div.classList.add("list", object.containType);
+
+        for (const key in object.container) {
+            const element = object.container[key];
+            const li = createListElement(element);
+            ul.appendChild(li);
+        }
+
+        div.appendChild(ul);
+        return div
     }
 
     function addElementToList(object){
@@ -45,29 +62,19 @@ function createDomInterfacer(){
 
     function createAddBtn(objectType) {
         const btn = document.createElement("button");
-        btn.classList.add("add-btn", objectType);
+        btn.classList.add("add-btn", objectType, "add-btn-active");
 
         const btnIcon = document.createElement("img");
         btnIcon.src = AddIcon;
         btnIcon.height = "16";
         btnIcon.width = "16";
 
+        const span = document.createElement("span");
+        span.textContent = `Add ${objectType}`;
         btn.appendChild(btnIcon);
-        btn.textContent = `Add ${objectType}`;
+        btn.appendChild(span);
 
         return btn;
-    }
-
-    function createList(object) {
-        const ul = document.createElement("ul");
-        ul.classList.add("list", object.type);
-
-        object.container.forEach(element => {
-            createListElement(element);
-            ul.appendChild(element);
-        });
-
-        return ul
     }
 
     function createProjectPage(project) {
@@ -77,11 +84,13 @@ function createDomInterfacer(){
         h1.textContent = project.title;
 
         const ul = createList(project);
-        const addBtn = createAddBtn(project.type);
+        const addBtn = createAddBtn("todo");
 
         content.appendChild(h1);
         content.appendChild(ul);
         content.appendChild(addBtn);
+
+        return content;
     }
 
     function collectInput(form){

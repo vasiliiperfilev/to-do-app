@@ -1,4 +1,4 @@
-function createStructurer(container) {
+function createStructurer(container, containType) {
     const add = (object) => {
         (object.title in container) || (container[object.title] = object)
     }
@@ -20,6 +20,10 @@ function createStructurer(container) {
         get container() {
             return container;
         },
+
+        get containType() {
+            return containType;
+        }
     };
 }
 

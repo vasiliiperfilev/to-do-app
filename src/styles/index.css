@@ -4,6 +4,7 @@
     --header-background-color: rgb(48, 78, 68);
     --header-font-color: whitesmoke;
     --menu-hover-background:rgb(144, 175, 160); 
+    --project-active-color: rgb(117, 151, 135); 
     --content-hover-background: rgb(226, 235, 230);
     --popup-btn-color: rgb(226, 235, 230);
 }
@@ -110,6 +111,11 @@ body {
     display:inline;
 }
 
+.project-active {
+    background-color: var(--menu-hover-background);
+    font-weight: bold;
+}
+
 .list a {
     text-decoration: none;
     color: inherit;
@@ -212,11 +218,16 @@ body {
     background-color: #f5b2b2;
 }
 
-#content {
+.content {
     padding: 2em 10em;
     height: 100%;
     width: 70%;
     flex: 1;
+}
+
+#content {
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
