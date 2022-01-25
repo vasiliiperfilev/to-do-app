@@ -29,42 +29,81 @@
         <div class="menu">
             <div class="list options">
                 <ul>
-                    <a href="#inbox"><li><img src="25e8de3b82dbb2f4c800.png" height="16px" width="16px">Inbox</li></a>
-                    <a href="#today"><li><img src="ee424bd948e6a83682d5.png" height="16px" width="16px">Today</li></a>
-                    <a href="#this-week"><li><img src="a15a91ec18fe5b7e5864.png" height="16px" width="16px">This week</li></a>
-                </ul>
-            </div>
-            <div class="list projects">
-                <h2>Projects</h2>
-                <ul>
-                    <a class="default-project" href="#default-project">
-                        <li>
-                            <img class="list-icon" src="8a2fd82c4cdccb83bd84.png" height="16px" width="16px">
-                            <span>Default project</span>
-                            <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16px" width="16px">
-                        </li>
-                    </a>
-                </ul>
-            </div>
-            <button class="add-project-btn"><img src="d94315115b7d9c3602b7.png" height="16px" width="16px">Add project</button>
-        </div>
-        <div id="content">
-            <h1>Project name</h1>
-            <div class="list todo">
-                <ul>
-                    <li class="default-to-do">
-                        <img class="list-icon" src="007e9867a60317af6626.png" height="16px" width="16px">
-                        <span>Some ToDo</span>
-                        <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16px" width="16px">
+                    <li class="inbox">
+                        <a href="#inbox">
+                            <img src="25e8de3b82dbb2f4c800.png" height="16" width="16">
+                            <span>Inbox</span>
+                        </a>
+                    </li>
+                    <li class="today">
+                        <a href="#today">
+                            <img src="ee424bd948e6a83682d5.png" height="16" width="16">
+                            <span>Today</span>
+                        </a>
+                    </li>
+                    <li class="this-week">
+                        <a href="#this-week">
+                            <img src="a15a91ec18fe5b7e5864.png" height="16" width="16">
+                            <span>This week</span>
+                        </a>
                     </li>
                 </ul>
             </div>
-            <button class="add-todo-btn"><img src="d94315115b7d9c3602b7.png" height="16px" width="16px">Add ToDo</button>
+            <div class="list project">
+                <h2>Projects</h2>
+                <ul>
+                    <li class="default-project">
+                        <a href="#default-project">
+                            <img class="list-icon" src="8a2fd82c4cdccb83bd84.png" height="16" width="16">
+                            <span>Default project</span>
+                        </a>
+                        <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16" width="16">
+                    </li>
+                </ul>
+            </div>
+            <button class="add-btn project add-btn-active">
+                <img src="d94315115b7d9c3602b7.png" height="16" width="16">
+                <span>Add project</span>
+            </button>
+            <div class="add-popup todo add-popup-hidden">
+                <input name="title" type="text">
+                <div class="btn-container">
+                    <button class="add-btn-popup">Add</button>
+                    <button class="cancel-btn-popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div id="content">
+                <h1>Project name</h1>
+                <div class="list todo">
+                    <ul>
+                        <li class="default-to-do">
+                            <a href="#default-to-do">
+                                <img class="list-icon" src="007e9867a60317af6626.png" height="16" width="16">
+                                <span>Some ToDo</span>
+                            </a>
+                            <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16" width="16">
+                        </li>
+                    </ul>
+                </div>
+                <button class="add-btn todo add-btn-active">
+                    <img src="d94315115b7d9c3602b7.png" height="16" width="16">
+                    Add ToDo
+                </button>
+                <div class="add-popup todo add-popup-hidden">
+                    <input name="title" type="text">
+                    <div class="btn-container">
+                        <button class="add-btn-popup">Add</button>
+                        <button class="cancel-btn-popup">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="footer">
         Copyright &copy; 2021 Vasilii Perfilev
-        <a href="https://github.com/vasiliiperfilev"><img src="987334e9f782cc505f25.png">
+        <a href="https://github.com/vasiliiperfilev"><img src="987334e9f782cc505f25.png"></a>
     </div>
 </body>
 
