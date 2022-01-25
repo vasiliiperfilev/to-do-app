@@ -94,11 +94,23 @@ function createDomInterfacer(){
         return parameters
     }
 
+    function addClassToElement(selector, newClass){
+        const elem = document.querySelector(selector);
+        elem.classList.add(newClass);
+    }
+
+    function removeClassFromElement(selector, classToRemove){
+        const elem = document.querySelector(selector);
+        elem.classList.remove(classToRemove);
+    }
+
     return {
         addElementToList,
         removeElementFromList,
         createProjectPage,
-        collectInput
+        collectInput,
+        addClassToElement,
+        removeClassFromElement
     };
 }
 

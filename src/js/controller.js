@@ -1,4 +1,5 @@
-//import structurer and interfacer
+import { createProjectStructurer } from "./project-structurer";
+import { createDomInterfacer } from "./dom-interfacer";
 
 
 //create structurer and interfacer
