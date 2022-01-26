@@ -28,6 +28,7 @@ function createController(){
     }
 
     function openAddToListPopup(popupElement, addBtnElement){
+        domInteracer.cleanInput(popupElement);
         domInteracer.showElement(popupElement);
         domInteracer.hideElement(addBtnElement);
     }
@@ -37,16 +38,23 @@ function createController(){
         domInteracer.hideElement(popupElement);
     }
     
-    function addProject(){
-        
+    function addProject(inputForm, projectList, projectContainer){
+        const parameters = domInteracer.collectInput(inputForm);
+        const project = createProject(parameters);
+        projectStructurer.add(project);
+        const listElement = domInteracer.createListElement(project);
+        listElement.addEventListener("click", chooseProject.bind(listElement, projectContainer));
+        projectList.appendChild(listElement, projectList);
     }
-    //addProject
     //removeProject
     //addTodo
     //removeTodo
     //showProject
     return {
         chooseProject,
+        openAddToListPopup,
+        closeAddToListPopup,
+        addProject
     };
 }
 

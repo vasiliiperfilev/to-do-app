@@ -49,15 +49,9 @@ function createDomInterfacer(){
         return div
     }
 
-    function addElementToList(object){
-        const parent = document.querySelector(`.list.${object.type}`);
-        parent.appendChild(createListElement(object));
-    }
-
-    function removeElementFromList(object){
-        const parent = document.querySelector(`.list.${object.type}`);
-        const child = document.querySelector(`.list.${object.type} .${object.noSpaceTitle}`);
-        parent.removeChild(child);
+    function removeElementFromList(selector, list){
+        const child = list.querySelector(selector);
+        list.removeChild(child);
     }
 
     function createAddBtn(objectType) {
@@ -132,6 +126,13 @@ function createDomInterfacer(){
         return parameters
     }
 
+    function cleanInput(form){
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach(input => {
+            input.value = "";
+        })
+    }
+
     function addClassToElement(selector, newClass){
         const elem = document.querySelector(selector);
         elem.classList.add(newClass);
@@ -153,10 +154,11 @@ function createDomInterfacer(){
     }
 
     return {
-        addElementToList,
+        createListElement,
         removeElementFromList,
         createProjectPage,
         collectInput,
+        cleanInput,
         addClassToElement,
         removeClassFromElement,
         showElement,
