@@ -77,6 +77,33 @@ function createDomInterfacer(){
         return btn;
     }
 
+    function createAddPopup(addType){
+        const div = document.createElement("div");
+        div.classList.add("add-popup", addType, "hidden");
+
+        const input = document.createElement("input");
+        input.name = "title";
+        input.type = "text";
+
+        const btnContainer = document.createElement("div");
+        btnContainer.classList.add("btn-container");
+
+        const addBtn = document.createElement("button");
+        addBtn.classList.add("add-btn-popup");
+        addBtn.textContent = "Add";
+
+        const cancelBtn = document.createElement("button");
+        cancelBtn.classList.add("cancel-btn-popup");
+        cancelBtn.textContent = "Cancel";
+
+        btnContainer.appendChild(addBtn);
+        btnContainer.appendChild(cancelBtn);
+        div.appendChild(input);
+        div.appendChild(btnContainer);
+
+        return div
+    }
+
     function createProjectPage(project) {
         const content = document.createElement("div");
         content.id = "content";
@@ -85,10 +112,12 @@ function createDomInterfacer(){
 
         const ul = createList(project);
         const addBtn = createAddBtn("todo");
+        const addPopup = createAddPopup("todo");
 
         content.appendChild(h1);
         content.appendChild(ul);
         content.appendChild(addBtn);
+        content.appendChild(addPopup);
 
         return content;
     }
