@@ -159,13 +159,11 @@ body {
     gap: 0.5em;
 }
 
-.add-popup-hidden,
-.add-btn-hidden {
+.hidden {
     display: none;
 }
 
-.add-popup-active,
-.add-btn-active {
+.active {
     display: flex;
 }
 

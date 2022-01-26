@@ -26,8 +26,20 @@ function createController(){
 
         showActiveProject(containerElement);
     }
-    //openAddToListWindow
-    //closeAddToListWindow
+
+    function openAddToListPopup(popupElement, addBtnElement){
+        domInteracer.showElement(popupElement);
+        domInteracer.hideElement(addBtnElement);
+    }
+
+    function closeAddToListPopup(popupElement, addBtnElement){
+        domInteracer.showElement(addBtnElement);
+        domInteracer.hideElement(popupElement);
+    }
+    
+    function addProject(){
+        
+    }
     //addProject
     //removeProject
     //addTodo

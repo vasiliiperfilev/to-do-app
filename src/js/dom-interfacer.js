@@ -62,7 +62,7 @@ function createDomInterfacer(){
 
     function createAddBtn(objectType) {
         const btn = document.createElement("button");
-        btn.classList.add("add-btn", objectType, "add-btn-active");
+        btn.classList.add("add-btn", objectType, "active");
 
         const btnIcon = document.createElement("img");
         btnIcon.src = AddIcon;
@@ -113,13 +113,25 @@ function createDomInterfacer(){
         elem.classList.remove(classToRemove);
     }
 
+    function showElement(element){
+        element.classList.remove("hidden");
+        element.classList.add("active");
+    }
+
+    function hideElement(element){
+        element.classList.remove("active");
+        element.classList.add("hidden");
+    }
+
     return {
         addElementToList,
         removeElementFromList,
         createProjectPage,
         collectInput,
         addClassToElement,
-        removeClassFromElement
+        removeClassFromElement,
+        showElement,
+        hideElement
     };
 }
 
