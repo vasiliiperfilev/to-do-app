@@ -1,6 +1,8 @@
 function createStructurer(container, containType) {
     const add = (object) => {
-        (object.title in container) || (container[object.title] = object)
+        if (object.title in container) return false;
+        container[object.title] = object;
+        return true;
     }
 
     const remove = (object) => {

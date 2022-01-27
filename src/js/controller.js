@@ -48,7 +48,7 @@ function createController(){
     function addProject(inputForm, projectList, projectContainer){
         const parameters = domInteracer.collectInput(inputForm);
         const project = createProject(parameters);
-        projectStructurer.add(project);
+        if (!projectStructurer.add(project)) return;
         const listElement = domInteracer.createListElement(project);
         listElement.addEventListener("click", chooseProject.bind(listElement, projectContainer));
         const removeIcon = listElement.querySelector(".remove-icon");
