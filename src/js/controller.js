@@ -38,23 +38,37 @@ function createController(){
         domInteracer.hideElement(popupElement);
     }
     
+    function removeProject(event, project, projectList){
+        event.stopPropagation();
+        const projectElement = projectList.querySelector(`[class='${project.noSpaceTitle}']`);
+        if ("active" in projectElement.classList) chooseProject(projectList.children[0]);
+        projectList.removeChild(projectElement);
+        projectStructurer.remove(project);
+    }
+
     function addProject(inputForm, projectList, projectContainer){
         const parameters = domInteracer.collectInput(inputForm);
         const project = createProject(parameters);
         projectStructurer.add(project);
         const listElement = domInteracer.createListElement(project);
         listElement.addEventListener("click", chooseProject.bind(listElement, projectContainer));
+        const removeIcon = listElement.querySelector(".remove-icon");
+        removeIcon.addEventListener("click", (event) => {
+            removeProject(event, project, projectList);
+        });
         projectList.appendChild(listElement, projectList);
     }
+
+
     //removeProject
     //addTodo
     //removeTodo
-    //showProject
+
     return {
         chooseProject,
         openAddToListPopup,
         closeAddToListPopup,
-        addProject
+        addProject,
     };
 }
 
