@@ -5,10 +5,10 @@ function createDomInterfacer(){
     
     function createListElement(object){
         const li = document.createElement("li");
-        li.classList.add(object.noSpaceTitle);
+        li.classList.add(`c${object.noSpaceTitle}`);
     
         const link = document.createElement("a");
-        link.href = `#${object.noSpaceTitle}`;
+        link.href = `#c${object.noSpaceTitle}`;
     
         const elemIcon = document.createElement("img");
         elemIcon.classList.add("list-icon");

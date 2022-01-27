@@ -1,7 +1,18 @@
 import { createBaseObject } from "./base-object";
 import TodoIcon from "../images/unfinished-task.png";
 
-function createTodo(title = "Default title", description = "", date = "", priority = 0) {
+function createTodo(parametersObject) {
+    let title = "Default title";
+    let description = "";
+    let date = "";
+    let priority = 0;
+
+    if (arguments.length == 1){
+        title = parametersObject.title;
+        //description = parametersObject.description;
+        //date = parametersObject.date;
+        //priority = parametersObject.priority;
+    }
 
     const proto = createBaseObject("todo", title, TodoIcon);
 

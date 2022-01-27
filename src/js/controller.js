@@ -38,10 +38,9 @@ function createController(){
         domInteracer.hideElement(popupElement);
     }
     
-    function removeProject(event, project, projectList){
-        event.stopPropagation();
-        const projectElement = projectList.querySelector(`[class='${project.noSpaceTitle}']`);
-        if ("active" in projectElement.classList) chooseProject(projectList.children[0]);
+    function removeProject(project, projectList, projectContainer){
+        const projectElement = projectList.querySelector(`.c${project.noSpaceTitle}`);
+        if (projectElement.classList.contains("selected")) chooseProject.bind(projectList.children[0], projectContainer)();
         projectList.removeChild(projectElement);
         projectStructurer.remove(project);
     }
@@ -54,13 +53,19 @@ function createController(){
         listElement.addEventListener("click", chooseProject.bind(listElement, projectContainer));
         const removeIcon = listElement.querySelector(".remove-icon");
         removeIcon.addEventListener("click", (event) => {
-            removeProject(event, project, projectList);
+            event.stopPropagation();
+            removeProject(project, projectList, projectContainer);
         });
-        projectList.appendChild(listElement, projectList);
+        projectList.appendChild(listElement);
     }
 
-
-    //removeProject
+    function addTodo(inputForm, todoList, project){
+        const parameters = domInteracer.collectInput(inputForm);
+        const todo = createTodo(parameters);
+        project.add(todo);
+        const todoElement = domInteracer.createListElement(todo);
+        todoList.appendChild(todoElement);
+    }
     //addTodo
     //removeTodo
 
