@@ -4,9 +4,9 @@
     --header-background-color: rgb(48, 78, 68);
     --header-font-color: whitesmoke;
     --menu-hover-background:rgb(144, 175, 160); 
-    --project-active-color: rgb(117, 151, 135); 
     --content-hover-background: rgb(226, 235, 230);
     --popup-btn-color: rgb(226, 235, 230);
+    --content-background: white;
 }
 
 @font-face {
@@ -93,6 +93,15 @@ body {
     cursor: pointer;
 }
 
+.list.project li,
+.list.options li {
+    background-color: var(--background-color);
+}
+
+.list.todo li {
+    background-color: var(--content-background);
+}
+
 .list li a {
     width: 100%;
 }
@@ -109,11 +118,6 @@ body {
 
 .list li:hover .remove-icon {
     display:inline;
-}
-
-.project-active {
-    background-color: var(--menu-hover-background);
-    font-weight: bold;
 }
 
 .list a {
@@ -165,6 +169,11 @@ body {
 
 .active {
     display: flex;
+}
+
+.selected {
+    filter: brightness(0.85);
+    font-weight: bold;
 }
 
 .add-popup > * {

@@ -22,7 +22,7 @@ function createController(){
         const title = this.querySelector("span").textContent;
         const project = projectStructurer.getObjectByTitle(title);
         projectStructurer.activeProject = project;
-        this.classList.add("project-active");
+        domInteracer.selectElement(this);
 
         showActiveProject(containerElement);
     }

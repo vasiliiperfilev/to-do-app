@@ -153,6 +153,13 @@ function createDomInterfacer(){
         element.classList.add("hidden");
     }
 
+    function selectElement(element){
+        const parent = element.parentElement;
+        const previousSelected = parent.querySelector(".selected");
+        if (previousSelected) previousSelected.classList.remove("selected");
+        element.classList.add("selected");
+    }
+
     return {
         createListElement,
         removeElementFromList,
@@ -162,7 +169,8 @@ function createDomInterfacer(){
         addClassToElement,
         removeClassFromElement,
         showElement,
-        hideElement
+        hideElement,
+        selectElement
     };
 }
 
