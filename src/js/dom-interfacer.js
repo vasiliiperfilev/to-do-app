@@ -5,7 +5,7 @@ function createDomInterfacer(){
     
     function createListElement(object){
         const li = document.createElement("li");
-        li.classList.add(`c${object.noSpaceTitle}`);
+        li.classList.add(`c${object.noSpaceTitle}`, object.type);
     
         const link = document.createElement("a");
         link.href = `#c${object.noSpaceTitle}`;
@@ -153,9 +153,9 @@ function createDomInterfacer(){
         element.classList.add("hidden");
     }
 
-    function selectElement(element){
-        const parent = element.parentElement;
-        const previousSelected = parent.querySelector(".selected");
+    function selectElement(object){
+        const element = document.querySelector(`.c${object.noSpaceTitle}.${object.type}`);
+        const previousSelected = document.querySelector(`.selected.${object.type}`);
         if (previousSelected) previousSelected.classList.remove("selected");
         element.classList.add("selected");
     }

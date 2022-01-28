@@ -6,10 +6,10 @@ import { createTodo } from "./todo-object"
 function createController(){
     const domInteracer = createDomInterfacer();
     const projectStructurer = createProjectStructurer();
-    const project = createProject();
-    const todo = createTodo()
-    project.add(todo);
-    projectStructurer.add(project);
+    const inbox = createProject({"title": "Inbox"});
+    const defaultProject = createProject();
+    projectStructurer.add(inbox);
+    projectStructurer.add(defaultProject);
 
     function showActiveProject(containerElement) {
         const project = projectStructurer.activeProject;
@@ -39,7 +39,7 @@ function createController(){
         const title = this.querySelector("span").textContent;
         const project = projectStructurer.getObjectByTitle(title);
         projectStructurer.activeProject = project;
-        domInteracer.selectElement(this);
+        domInteracer.selectElement(project);
 
         showActiveProject(containerElement);
     }
@@ -65,7 +65,8 @@ function createController(){
     
     function removeProject(project, projectList, projectContainer){
         const projectElement = projectList.querySelector(`.c${project.noSpaceTitle}`);
-        if (projectElement.classList.contains("selected")) chooseProject.bind(projectList.children[0], projectContainer)();
+        const inbox = projectList.parentElement.parentElement.querySelector(".cInbox");
+        if (projectElement.classList.contains("selected")) chooseProject.bind(inbox, projectContainer)();
         projectList.removeChild(projectElement);
         projectStructurer.remove(project);
     }

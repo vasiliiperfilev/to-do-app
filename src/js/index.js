@@ -2,7 +2,7 @@ import "../styles/index.css";
 import { createController } from "./controller";
 
 const controller = createController();
-const li = document.querySelector(".cdefault-project");
+const li = document.querySelector(".cDefault-project");
 const content = document.querySelector(".content")
 li.addEventListener("click", controller.chooseProject.bind(li, content));
 
