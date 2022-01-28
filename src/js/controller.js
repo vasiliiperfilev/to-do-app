@@ -54,6 +54,14 @@ function createController(){
         domInteracer.showElement(addBtnElement);
         domInteracer.hideElement(popupElement);
     }
+
+
+    function createObject(inputForm, createFunction, containerObject){
+        const parameters = domInteracer.collectInput(inputForm);
+        const obj = createFunction(parameters);
+        if (!containerObject.add(obj)) return;
+        return obj
+    }
     
     function removeProject(project, projectList, projectContainer){
         const projectElement = projectList.querySelector(`.c${project.noSpaceTitle}`);
@@ -63,9 +71,7 @@ function createController(){
     }
 
     function addProject(inputForm, projectList, projectContainer){
-        const parameters = domInteracer.collectInput(inputForm);
-        const project = createProject(parameters);
-        if (!projectStructurer.add(project)) return;
+        const project = createObject(inputForm, createProject, projectStructurer);
         const projectElement = domInteracer.createListElement(project);
         projectElement.addEventListener("click", chooseProject.bind(projectElement, projectContainer));
         const removeIcon = projectElement.querySelector(".remove-icon");
@@ -84,9 +90,7 @@ function createController(){
     }
 
     function addTodo(inputForm, todoList, project){
-        const parameters = domInteracer.collectInput(inputForm);
-        const todo = createTodo(parameters);
-        if (!project.add(todo)) return;
+        const todo = createObject(inputForm, createTodo, project);
         const todoElement = domInteracer.createListElement(todo);
         const removeIcon = todoElement.querySelector(".remove-icon");
         removeIcon.addEventListener("click", (event) => {
