@@ -133,14 +133,8 @@ function createDomInterfacer(){
         })
     }
 
-    function addClassToElement(selector, newClass){
-        const elem = document.querySelector(selector);
-        elem.classList.add(newClass);
-    }
-
-    function removeClassFromElement(selector, classToRemove){
-        const elem = document.querySelector(selector);
-        elem.classList.remove(classToRemove);
+    function getElementBySelector(selector){
+        return document.querySelector(selector);
     }
 
     function showElement(element){
@@ -160,17 +154,29 @@ function createDomInterfacer(){
         element.classList.add("selected");
     }
 
+    function getListInterface(listContainer, containType){
+        const addBtn = listContainer.querySelector(`.add-btn`);
+        const addPopup = listContainer.querySelector(".add-popup");
+        const closePopupBtn = listContainer.querySelector(".add-popup .cancel-btn-popup");
+        const ul = listContainer.querySelector(`.list.${containType} ul`);
+        const addPopupBtn = listContainer.querySelector(".add-popup .add-btn-popup");
+
+        return {
+            addBtn, addPopup, addPopupBtn, closePopupBtn, ul
+        }
+    }
+
     return {
         createListElement,
         removeElementFromList,
         createProjectPage,
         collectInput,
         cleanInput,
-        addClassToElement,
-        removeClassFromElement,
         showElement,
         hideElement,
-        selectElement
+        selectElement,
+        getListInterface,
+        getElementBySelector
     };
 }
 
