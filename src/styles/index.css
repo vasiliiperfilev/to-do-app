@@ -120,6 +120,28 @@ body {
     display:inline;
 }
 
+.right-li.todo{
+    margin-left: auto;
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.todo.input-date {
+    color: inherit;
+    border-width: 0;
+    background-color: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    display: flex;
+    flex-flow: row-reverse;
+}
+
+.todo.input-date:focus {
+    outline: none;
+}
+
 .list a {
     text-decoration: none;
     color: inherit;
@@ -207,21 +229,24 @@ body {
     border:none;
     cursor: pointer;
     color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.add-btn-popup {
+.add-popup.add-btn {
     background-color: rgb(170, 255, 170);
 }
 
-.cancel-btn-popup {
+.add-popup.cancel-btn {
     background-color: rgb(255, 190, 190);
 }
 
-.add-btn-popup:hover {
+.add-popup.add-btn:hover {
     background-color: rgb(144, 236, 144);
 }
 
-.cancel-btn-popup:hover {
+.add-popup.cancel-btn:hover {
     background-color: #f5b2b2;
 }
 

@@ -122,15 +122,10 @@ function createController() {
     }
 
     return {
-        get projectStructurer() {
-            return projectStructurer;
-        },
-
         addProject,
         chooseProject,
         openAddToListPopup,
         closeAddToListPopup,
-        addProject,
         setListEventListeners,
     };
 }
