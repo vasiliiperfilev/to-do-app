@@ -107,7 +107,7 @@ function createController() {
         try {
             const project = projectStructurer.activeProject;
             const todo = createObject(inputForm, createTodo, project);
-            const todoElement = domInteracer.createListElement(todo);
+            const todoElement = domInteracer.createTodoListElement(todo);
             const removeIcon = todoElement.querySelector(".remove-icon");
             removeIcon.addEventListener("click", (event) => {
                 event.stopPropagation();

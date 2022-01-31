@@ -63,9 +63,9 @@ function createDomInterfacer(){
     function createTodoListElement(todo){
         const li = createListElement(todo);
         const rightLi = li.querySelector(".right-li.todo");
-
-        // const dateInput = 
-
+        const dateInput = createInput(["todo", "input-date"], "date", "date");
+        rightLi.prepend(dateInput);
+        return li
     }
 
     function createList(object) {
@@ -176,6 +176,7 @@ function createDomInterfacer(){
 
     return {
         createListElement,
+        createTodoListElement,
         removeElementFromList,
         createProjectPage,
         collectInput,
