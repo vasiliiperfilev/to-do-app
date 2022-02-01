@@ -6,12 +6,16 @@ import {
 } from "./dom-interfacer";
 import {
     createTodo
-} from "./todo-object"
+} from "./todo-object";
+import {
+    createSelectorHolder
+} from "./selectorHolder";
 
 function createController(projectWindow) {
     //create objects
     const domInteracer = createDomInterfacer();
     const projectStructurer = createProjectStructurer();
+    const selectors = createSelectorHolder();
 
     function showActiveProject() {
         const project = projectStructurer.activeProject;
@@ -58,17 +62,17 @@ function createController(projectWindow) {
     }
 
     function setupRemoveIcon(element, object, objectList, objectContainer){
-        const removeIcon = element.querySelector(".remove-icon");
+        const removeIcon = domInteracer.getLiInterface(element).removeIcon;
         removeIcon.addEventListener("click", (event) => {
             event.stopPropagation();
             removeObject(object, objectList, objectContainer);
-            if (element.classList.contains("selected")) chooseProject.bind(domInteracer.inbox)();
+            if (element.classList.contains(`${selectors.selected}`)) chooseProject.bind(domInteracer.inbox)();
         });
     }
 
     function setupTodoListeners(todo, todoElement, todoList){
         setupRemoveIcon(todoElement, todo, todoList, projectStructurer.activeProject)
-        const dateInput = todoElement.querySelector(".todo.input-date");
+        const dateInput = domInteracer.getLiInterface(todoElement).dateInput;
         dateInput.addEventListener("change", (event) => {
             todo.date = event.target.value;
         })
@@ -80,14 +84,14 @@ function createController(projectWindow) {
     }
 
     function addObject(object, objectList, setupFunction){
-        // try{
+        try{
             const objectElement = object.liElement;
             setupFunction(object, objectElement, objectList);
             objectList.appendChild(objectElement);
-        // }
-        // catch {
-        //     alert("Alredy exists!");
-        // }
+        }
+        catch {
+            alert("Alredy exists!");
+        }
     }
 
     return {

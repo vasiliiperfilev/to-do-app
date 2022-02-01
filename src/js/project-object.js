@@ -8,6 +8,7 @@ function createProject(parametersObject) {
 
     if (arguments.length == 1){
         title = parametersObject.title;
+        if (title === "") title = "Default title";
     }
 
     const todoList = {};

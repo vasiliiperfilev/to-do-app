@@ -1,9 +1,11 @@
 import RemoveIcon from "../images/remove-task.png";
 import AddIcon from "../images/add-icon.png";
 import { createDomFunctions } from "./dom-functions";
+import { createSelectorHolder } from "./selectorHolder";
 
 function createDomInterfacer(){
     const domFunctions = createDomFunctions();
+    const selectors = createSelectorHolder();
 
     function createListElement(object){
         const li = document.createElement("li");
@@ -12,14 +14,14 @@ function createDomInterfacer(){
         const link = document.createElement("a");
         link.href = `#${object.titleToClassName}`;
         
-        const elemIcon = domFunctions.createImg("list-icon", object.icon, "16", "16");
+        const elemIcon = domFunctions.createImg(selectors.liIcon, object.icon, "16", "16");
     
         const span = document.createElement("span");
         span.textContent = object.title;
         
-        const rightLi = domFunctions.createDiv(["right-li", object.type])
+        const rightLi = domFunctions.createDiv([selectors.rightLi, object.type])
 
-        const removeIcon = domFunctions.createImg(["remove-icon"], RemoveIcon, "16", "16");
+        const removeIcon = domFunctions.createImg([selectors.removeLiIcon], RemoveIcon, "16", "16");
         
         link.append(elemIcon, span);
         rightLi.appendChild(removeIcon);
@@ -30,14 +32,14 @@ function createDomInterfacer(){
     
     function createTodoListElement(todo){
         const li = createListElement(todo);
-        const rightLi = li.querySelector(".right-li.todo");
-        const dateInput = domFunctions.createInput(["todo", "input-date"], "date", "date");
+        const rightLi = li.querySelector(`.${selectors.rightLi}.${selectors.todo}`);
+        const dateInput = domFunctions.createInput([selectors.todo, selectors.inputDate], "date", "date");
         rightLi.prepend(dateInput);
         return li
     }
 
     function createList(object) {
-        const div = domFunctions.createDiv(["list", object.containType])
+        const div = domFunctions.createDiv([selectors.list, object.containType])
         const ul = document.createElement("ul");
 
         for (const key in object.container) {
@@ -51,7 +53,7 @@ function createDomInterfacer(){
     }
 
     function createAddBtn(objectType) {
-        const btn = domFunctions.createBtn(["add-btn", objectType, "active"], `Add ${objectType}`);
+        const btn = domFunctions.createBtn([selectors.addBtn, objectType, selectors.active], `Add ${objectType}`);
         const btnIcon = domFunctions.createImg([],AddIcon, "16", "16");
         btn.prepend(btnIcon);
 
@@ -59,12 +61,12 @@ function createDomInterfacer(){
     }
 
     function createAddPopup(addType){
-        const div = domFunctions.createDiv(["add-popup", addType, "hidden"]);
-        const input = domFunctions.createInput(["add-popup", "input-title"], "title", "text");
-        const btnContainer = domFunctions.createDiv(["btn-container"])
+        const div = domFunctions.createDiv([selectors.addPopup, addType, selectors.hidden]);
+        const input = domFunctions.createInput([selectors.addPopup, selectors.inputTitle], "title", "text");
+        const btnContainer = domFunctions.createDiv([selectors.btnContainer])
 
-        const addBtn = domFunctions.createBtn(["add-popup", "add-btn"], "Add");
-        const cancelBtn = domFunctions.createBtn(["add-popup", "cancel-btn"], "Cancel");
+        const addBtn = domFunctions.createBtn([selectors.addPopup, selectors.addBtn], "Add");
+        const cancelBtn = domFunctions.createBtn([selectors.addPopup, selectors.cancelBtn], "Cancel");
 
         btnContainer.append(addBtn, cancelBtn);
         div.append(input, btnContainer);
@@ -87,27 +89,30 @@ function createDomInterfacer(){
         return content;
     }
 
-    // function getElementBySelector(selector){
-    //     return document.querySelector(selector);
-    // }
-
-
     function selectObjectElement(object){
         const element = document.querySelector(`.${object.titleToClassName}.${object.type}`);
-        const previousSelected = document.querySelector(`.selected.${object.type}`);
-        if (previousSelected) previousSelected.classList.remove("selected");
+        const previousSelected = document.querySelector(`.${selectors.selected}.${object.type}`);
+        if (previousSelected) previousSelected.classList.remove(`${selectors.selected}`);
         element.classList.add("selected");
     }
 
     function getListInterface(listContainer){
-        const addBtn = listContainer.querySelector(`.add-btn`);
-        const addPopup = listContainer.querySelector(".add-popup");
-        const closePopupBtn = listContainer.querySelector(".add-popup .cancel-btn");
-        const ul = listContainer.querySelector(`.list ul`);
-        const addPopupBtn = listContainer.querySelector(".add-popup.add-btn");
+        const addBtn = listContainer.querySelector(`.${selectors.addBtn}`);
+        const addPopup = listContainer.querySelector(`.${selectors.addPopup}`);
+        const closePopupBtn = listContainer.querySelector(`.${selectors.addPopup} .${selectors.cancelBtn}`);
+        const ul = listContainer.querySelector(`.${selectors.list} ul`);
+        const addPopupBtn = listContainer.querySelector(`.${selectors.addPopup}.${selectors.addBtn}`);
 
         return {
             addBtn, addPopup, addPopupBtn, closePopupBtn, ul
+        }
+    }
+
+    function getLiInterface(li){
+        const removeIcon = li.querySelector(`.${selectors.removeLiIcon}`);
+        const dateInput = li.querySelector(`.${selectors.inputDate}`);
+        return {
+            removeIcon, dateInput
         }
     }
 
@@ -120,8 +125,9 @@ function createDomInterfacer(){
         hidePopup: domFunctions.hidePopup,
         selectObjectElement,
         getListInterface,
+        getLiInterface,
         get inbox(){
-            return document.querySelector(".cInbox.project")
+            return document.querySelector(`.${selectors.inbox}.${selectors.project}`)
         }
     };
 }
