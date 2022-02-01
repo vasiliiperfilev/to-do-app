@@ -1,7 +1,7 @@
-function createBaseObject(type, title, icon){
+function createBaseObject(type, title, icon, createLiElementFunction){
 
-    const noSpaceTitle = () => {
-        return title.replace(/\s/g, '-')
+    const titleToClassName = () => {
+        return "c" + title.replace(/\s/g, '-');
     }
 
     return {
@@ -22,8 +22,12 @@ function createBaseObject(type, title, icon){
             title = newTitle;
         },
 
-        get noSpaceTitle() {
-            return noSpaceTitle();
+        get titleToClassName() {
+            return titleToClassName();
+        },
+
+        get liElement() {
+            return createLiElementFunction(this);
         }
     };
 }

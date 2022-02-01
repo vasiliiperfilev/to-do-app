@@ -1,6 +1,7 @@
 import { createStructurer } from "./structurer";
 import { createBaseObject } from "./base-object";
-import ProjectIcon from "../images/project.png"
+import { createDomInterfacer } from "./dom-interfacer";
+import ProjectIcon from "../images/project.png";
 
 function createProject(parametersObject) {
     let title = "Default project";
@@ -10,8 +11,10 @@ function createProject(parametersObject) {
     }
 
     const todoList = {};
-    const proto1 = createStructurer(todoList, "todo");
-    const proto2 = createBaseObject("project", title, ProjectIcon);
+    const containType = "todo";
+    const domInteracer = createDomInterfacer()
+    const proto1 = createStructurer(todoList, containType);
+    const proto2 = createBaseObject("project", title, ProjectIcon, domInteracer.createListElement);
 
     return Object.assign({}, proto1, proto2 );
 }

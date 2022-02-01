@@ -5,128 +5,95 @@ import {
     createDomInterfacer
 } from "./dom-interfacer";
 import {
-    createProject
-} from "./project-object"
-import {
     createTodo
 } from "./todo-object"
 
-function createController() {
-    //create default elements
+function createController(projectWindow) {
+    //create objects
     const domInteracer = createDomInterfacer();
     const projectStructurer = createProjectStructurer();
-    const inbox = createProject({
-        "title": "Inbox"
-    });
-    const defaultProject = createProject();
-    projectStructurer.add(inbox);
-    projectStructurer.add(defaultProject);
 
-    function showActiveProject(containerElement) {
+    function showActiveProject() {
         const project = projectStructurer.activeProject;
         const projectPage = domInteracer.createProjectPage(project);
-        setListEventListeners(projectPage, "todo", addTodo);
-        containerElement.innerHTML = "";
-        containerElement.appendChild(projectPage);
+        setListEventListeners(projectPage, createTodo, setupTodoListeners);
+        projectWindow.innerHTML = "";
+        projectWindow.appendChild(projectPage);
     }
 
-    function setListEventListeners(listContainer, containType, addFunction, objectContainer) {
-        const listInterface = domInteracer.getListInterface(listContainer, containType);
+    function setListEventListeners(listContainer, createFunction, setupFunction) {
+        const listInterface = domInteracer.getListInterface(listContainer);
         listInterface.addBtn.addEventListener("click", 
-            openAddToListPopup.bind(null, listInterface.addPopup, listInterface.addBtn));
+            domInteracer.showPopup.bind(null, listInterface.addPopup, listInterface.addBtn));
 
         listInterface.closePopupBtn.addEventListener("click", 
-            closeAddToListPopup.bind(null, listInterface.addPopup, listInterface.addBtn));
+            domInteracer.hidePopup.bind(null, listInterface.addPopup, listInterface.addBtn));
 
         listInterface.addPopupBtn.addEventListener("click", () => {
-            addFunction(listInterface.addPopup, listInterface.ul, objectContainer);
+            const object = createObject(listInterface.addPopup, createFunction)
+            addObject(object, listInterface.ul, setupFunction);
             listInterface.closePopupBtn.click();
         });
     }
 
-    function chooseProject(containerElement) {
+    function chooseProject() {
         const title = this.querySelector("span").textContent;
         const project = projectStructurer.getObjectByTitle(title);
         projectStructurer.activeProject = project;
-        domInteracer.selectElement(project);
-
-        showActiveProject(containerElement);
+        domInteracer.selectObjectElement(project);
+        showActiveProject();
     }
 
-    function openAddToListPopup(popupElement, addBtnElement) {
-        domInteracer.cleanInput(popupElement);
-        domInteracer.showElement(popupElement);
-        domInteracer.hideElement(addBtnElement);
+    function removeObject(object, objectList, objectContainer){
+        const objectElement = objectList.querySelector(`.${object.titleToClassName}`);
+        objectList.removeChild(objectElement);
+        objectContainer.remove(object);
     }
 
-    function closeAddToListPopup(popupElement, addBtnElement) {
-        domInteracer.showElement(addBtnElement);
-        domInteracer.hideElement(popupElement);
-    }
-
-
-    function createObject(inputForm, createFunction, containerObject) {
+    function createObject(inputForm, createFunction) {
         const parameters = domInteracer.collectInput(inputForm);
         const obj = createFunction(parameters);
-        if (!containerObject.add(obj)) return;
+        if (!projectStructurer.add(obj)) return;
         return obj
     }
 
-    function removeProject(project, projectList, projectContainer) {
-        const projectElement = projectList.querySelector(`.c${project.noSpaceTitle}`);
-        const inbox = domInteracer.getElementBySelector(".cInbox");
-        if (projectElement.classList.contains("selected")) chooseProject.bind(inbox, projectContainer)();
-        projectList.removeChild(projectElement);
-        projectStructurer.remove(project);
+    function setupRemoveIcon(element, object, objectList, objectContainer){
+        const removeIcon = element.querySelector(".remove-icon");
+        removeIcon.addEventListener("click", (event) => {
+            event.stopPropagation();
+            removeObject(object, objectList, objectContainer);
+            if (element.classList.contains("selected")) chooseProject.bind(domInteracer.inbox)();
+        });
     }
 
-    function addProject(inputForm, projectList, projectContainer) {
-        try {
-            const project = createObject(inputForm, createProject, projectStructurer);
-            const projectElement = domInteracer.createListElement(project);
-            projectElement.addEventListener("click", chooseProject.bind(projectElement, projectContainer));
-            const removeIcon = projectElement.querySelector(".remove-icon");
-            removeIcon.addEventListener("click", (event) => {
-                event.stopPropagation();
-                removeProject(project, projectList, projectContainer);
-            });
-            projectList.appendChild(projectElement);
-        } catch {
-            alert("Project is alredy exist");
-        }
+    function setupTodoListeners(todo, todoElement, todoList){
+        setupRemoveIcon(todoElement, todo, todoList, projectStructurer.activeProject)
+        const dateInput = todoElement.querySelector(".todo.input-date");
+        dateInput.addEventListener("change", (event) => {
+            todo.date = event.target.value;
+        })
     }
 
-    function removeTodo(todo, todoList) {
-        const todoElement = todoList.querySelector(`.c${todo.noSpaceTitle}`);
-        todoList.removeChild(todoElement);
-        const project = projectStructurer.activeProject;
-        project.remove(todo);
+    function setupProjectListeners(project, projectElement, projectList){
+        setupRemoveIcon(projectElement, project, projectList, projectStructurer);
+        projectElement.addEventListener("click", chooseProject);
     }
 
-    function addTodo(inputForm, todoList, _) {
-        try {
-            const project = projectStructurer.activeProject;
-            const todo = createObject(inputForm, createTodo, project);
-            const todoElement = domInteracer.createTodoListElement(todo);
-            const removeIcon = todoElement.querySelector(".remove-icon");
-            removeIcon.addEventListener("click", (event) => {
-                event.stopPropagation();
-                removeTodo(todo, todoList);
-            });
-            todoList.appendChild(todoElement);
-        }
-        catch {
-            alert("Todo already exists");
-        }
-
+    function addObject(object, objectList, setupFunction){
+        // try{
+            const objectElement = object.liElement;
+            setupFunction(object, objectElement, objectList);
+            objectList.appendChild(objectElement);
+        // }
+        // catch {
+        //     alert("Alredy exists!");
+        // }
     }
 
     return {
-        addProject,
         chooseProject,
-        openAddToListPopup,
-        closeAddToListPopup,
         setListEventListeners,
+        setupProjectListeners,
     };
 }
 

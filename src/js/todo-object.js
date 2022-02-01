@@ -1,4 +1,5 @@
 import { createBaseObject } from "./base-object";
+import { createDomInterfacer } from "./dom-interfacer";
 import TodoIcon from "../images/unfinished-task.png";
 
 function createTodo(parametersObject) {
@@ -14,7 +15,8 @@ function createTodo(parametersObject) {
         //priority = parametersObject.priority;
     }
 
-    const proto = createBaseObject("todo", title, TodoIcon);
+    const domInteracer = createDomInterfacer()
+    const proto = createBaseObject("todo", title, TodoIcon, domInteracer.createTodoListElement);
 
     return Object.assign({}, proto, { 
 

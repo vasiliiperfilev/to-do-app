@@ -3,11 +3,11 @@ import { createController } from "./controller";
 import { createProject } from "./project-object";
 
 function createStartPage() {
-    const controller = createController();
+    const projectWindow = document.querySelector(".content");
+    const controller = createController(projectWindow);
    
-    const projectList = document.querySelector(".menu");
-    const projectContainer = document.querySelector(".content")
-    controller.setListEventListeners(projectList, "project", controller.addProject,  projectContainer);
+    const projectList = document.querySelector(".list.project");
+    controller.setListEventListeners(projectList, createProject, controller.setupProjectListeners);
 }
 
 createStartPage();
