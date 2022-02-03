@@ -19,7 +19,15 @@ function createProjectStructurer() {
         else {
             return proto.add(object);
         }
+    }
 
+    function remove(object){
+        if (object.type !== containType){
+            return this.activeProject.remove(object);
+        }
+        else {
+            return proto.remove(object);
+        }
     }
 
     return Object.assign({}, proto, {
@@ -30,7 +38,8 @@ function createProjectStructurer() {
         set activeProject(title){
             activeProject = proto.getObjectByTitle(title);
         },
-        add
+        add,
+        remove
     });
 }
 
