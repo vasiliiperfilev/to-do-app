@@ -214,6 +214,10 @@ body {
     outline: none;
 }
 
+::-webkit-calendar-picker-indicator {
+    background-image: url("../images/today.png");
+}
+
 .btn-container {
     display: flex;
     justify-content: space-between;

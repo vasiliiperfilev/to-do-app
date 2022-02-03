@@ -34,6 +34,7 @@ function createDomInterfacer(){
         const li = createListElement(todo);
         const rightLi = li.querySelector(`.${selectors.rightLi}.${selectors.todo}`);
         const dateInput = domFunctions.createInput([selectors.todo, selectors.inputDate], "date", "date");
+        dateInput.value = todo.date;
         rightLi.prepend(dateInput);
         return li
     }
