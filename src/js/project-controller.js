@@ -5,35 +5,36 @@ import {
     createDomInterfacer
 } from "./dom-interfacer";
 import {
-    createTodo
-} from "./todo-object";
-import {
     createSelectorHolder
 } from "./selectorHolder";
 import { createObjectManipulator } from "./object-manipulator";
+import { createTodoController } from "./todo-controller";
 
-function createController(projectWindow) {
+function createProjectController(projectWindow) {
     //create objects
     const domInterfacer = createDomInterfacer();
     const projectStructurer = createProjectStructurer();
     const selectors = createSelectorHolder();
     const objectManipulator = createObjectManipulator();
+    const todoController = createTodoController(objectManipulator, domInterfacer,projectStructurer);
 
     function showActiveProject() {
         const project = projectStructurer.activeProject;
         const projectPage = domInterfacer.createProjectPage(project);
-        setListEventListeners(projectPage, createTodo, setupTodoListeners);
+        setListEventListeners(projectPage, todoController.createTodo, todoController.setupTodoListeners);
         projectWindow.innerHTML = "";
         projectWindow.appendChild(projectPage);
     }
 
     function setListEventListeners(listContainer, createFunction, setupFunction) {
         const listInterface = domInterfacer.getListInterface(listContainer);
-        listInterface.addBtn.addEventListener("click", 
-            domInterfacer.showPopup.bind(null, listInterface.addPopup, listInterface.addBtn));
+        listInterface.addBtn.addEventListener("click", () => {
+            domInterfacer.cleanInput(listInterface.addPopup);
+            domInterfacer.replaceElement(listInterface.addPopup, listInterface.addBtn);
+        });
 
         listInterface.closePopupBtn.addEventListener("click", 
-            domInterfacer.hidePopup.bind(null, listInterface.addPopup, listInterface.addBtn));
+            domInterfacer.replaceElement.bind(null,  listInterface.addBtn,listInterface.addPopup));
 
         listInterface.addPopupBtn.addEventListener("click", () => {
             const object = objectManipulator.createObject(listInterface.addPopup, createFunction, projectStructurer)
@@ -59,14 +60,6 @@ function createController(projectWindow) {
         });
     }
 
-    function setupTodoListeners(todo, todoElement, todoList){
-        setupRemoveIcon(todoElement, todo, todoList, projectStructurer.activeProject)
-        const dateInput = domInterfacer.getLiInterface(todoElement).dateInput;
-        dateInput.addEventListener("change", (event) => {
-            todo.date = event.target.value;
-        })
-    }
-
     function setupProjectListeners(project, projectElement, projectList){
         setupRemoveIcon(projectElement, project, projectList, projectStructurer);
         projectElement.addEventListener("click", chooseProject);
@@ -80,5 +73,5 @@ function createController(projectWindow) {
 }
 
 export {
-    createController
+    createProjectController
 };

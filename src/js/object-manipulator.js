@@ -17,14 +17,14 @@ function createObjectManipulator(){
     }
 
     function addObject(object, objectList, setupFunction){
-        try{
+        // try{
             const objectElement = object.liElement;
             setupFunction(object, objectElement, objectList);
             objectList.appendChild(objectElement);
-        }
-        catch {
-            alert("Alredy exists!");
-        }
+        // }
+        // catch {
+        //     alert("Alredy exists!");
+        // }
     }
 
     return {

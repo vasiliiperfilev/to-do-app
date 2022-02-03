@@ -61,15 +61,9 @@ function createDomFunctions(){
         element.classList.add("hidden");
     }
 
-    function showPopup(popupElement, addBtnElement) {
-        cleanInput(popupElement);
-        showElement(popupElement);
-        hideElement(addBtnElement);
-    }
-
-    function hidePopup(popupElement, addBtnElement) {
-        showElement(addBtnElement);
-        hideElement(popupElement);
+    function replaceElement(elemToShow, elemToHide) {
+        showElement(elemToShow);
+        hideElement(elemToHide);
     }
 
     return {
@@ -78,8 +72,8 @@ function createDomFunctions(){
         createImg,
         createInput,
         collectInput,
-        showPopup,
-        hidePopup
+        replaceElement,
+        cleanInput,
     }
 }
 

@@ -104,6 +104,9 @@ body {
 
 .list li a {
     width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .list li:hover,
@@ -128,7 +131,7 @@ body {
     align-items: center;
 }
 
-.todo.input-date {
+.todo input {
     color: inherit;
     border-width: 0;
     background-color: inherit;
@@ -138,8 +141,17 @@ body {
     flex-flow: row-reverse;
 }
 
+.todo.input-title {
+    width: 30%;
+    border-radius: 0.2em;
+}
+
 .todo.input-date:focus {
     outline: none;
+}
+
+.todo.input-title:focus {
+    outline: 0.5px solid var(--background-color);
 }
 
 .list a {
@@ -185,15 +197,15 @@ body {
     gap: 0.5em;
 }
 
-.hidden {
+body .hidden {
     display: none;
 }
 
-.active {
+body .active {
     display: flex;
 }
 
-.selected {
+body .selected {
     filter: brightness(0.85);
     font-weight: bold;
 }

@@ -9,9 +9,9 @@ function createSelectorHolder(){
     removeLiIcon : "remove-icon",
     //todo li
     inputDate : "input-date",
+    inputTitle: "input-title",
     //popup selectors
     addPopup : "add-popup",
-    inputTitle : "inputTitle",
     btnContainer : "btn-container",
     //special selectors
     addBtn : "add-btn",

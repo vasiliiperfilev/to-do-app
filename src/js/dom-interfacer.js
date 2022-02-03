@@ -32,9 +32,12 @@ function createDomInterfacer(){
     
     function createTodoListElement(todo){
         const li = createListElement(todo);
+        const a = li.querySelector("a");
+        const titleInput = domFunctions.createInput([selectors.todo, selectors.inputTitle, selectors.hidden], "title", "text")
         const rightLi = li.querySelector(`.${selectors.rightLi}.${selectors.todo}`);
         const dateInput = domFunctions.createInput([selectors.todo, selectors.inputDate], "date", "date");
         dateInput.value = todo.date;
+        a.append(titleInput);
         rightLi.prepend(dateInput);
         return li
     }
@@ -112,8 +115,10 @@ function createDomInterfacer(){
     function getLiInterface(li){
         const removeIcon = li.querySelector(`.${selectors.removeLiIcon}`);
         const dateInput = li.querySelector(`.${selectors.inputDate}`);
+        const titleInput = li.querySelector(`.${selectors.inputTitle}`);
+        const title = li.querySelector("span")
         return {
-            removeIcon, dateInput
+            removeIcon, dateInput, titleInput, title
         }
     }
 
@@ -122,8 +127,8 @@ function createDomInterfacer(){
         createTodoListElement,
         createProjectPage,
         collectInput: domFunctions.collectInput,
-        showPopup: domFunctions.showPopup,
-        hidePopup: domFunctions.hidePopup,
+        replaceElement: domFunctions.replaceElement,
+        cleanInput: domFunctions.cleanInput,
         selectObjectElement,
         getListInterface,
         getLiInterface,
