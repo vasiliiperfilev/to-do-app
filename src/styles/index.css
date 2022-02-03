@@ -102,6 +102,11 @@ body {
     background-color: var(--content-background);
 }
 
+.list.todo li.done {
+    filter:opacity(0.5);
+    text-decoration: line-through;
+}
+
 .list li a {
     width: 100%;
     display: flex;

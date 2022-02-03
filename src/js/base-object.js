@@ -1,7 +1,7 @@
 function createBaseObject(type, title, icon, createLiElementFunction){
 
     const titleToClassName = () => {
-        return "c" + title.replace(/\s/g, '-');
+        return "c" + title.replace(/\W/g, "-");
     }
 
     return {

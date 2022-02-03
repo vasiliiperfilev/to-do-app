@@ -14,10 +14,10 @@ function createDomInterfacer(){
         const link = document.createElement("a");
         link.href = `#${object.titleToClassName}`;
         
-        const elemIcon = domFunctions.createImg(selectors.liIcon, object.icon, "16", "16");
+        const elemIcon = domFunctions.createImg([selectors.liIcon, object.type], object.icon, "16", "16");
     
         const span = document.createElement("span");
-        span.textContent = object.title;
+        span.innerText = object.title;
         
         const rightLi = domFunctions.createDiv([selectors.rightLi, object.type])
 
@@ -113,12 +113,13 @@ function createDomInterfacer(){
     }
 
     function getLiInterface(li){
+        const liIcon = li.querySelector(`.${selectors.liIcon}`);
         const removeIcon = li.querySelector(`.${selectors.removeLiIcon}`);
         const dateInput = li.querySelector(`.${selectors.inputDate}`);
         const titleInput = li.querySelector(`.${selectors.inputTitle}`);
         const title = li.querySelector("span")
         return {
-            removeIcon, dateInput, titleInput, title
+            liIcon, removeIcon, dateInput, titleInput, title
         }
     }
 

@@ -1,6 +1,10 @@
 import { createTodo } from "./todo-object";
+import NotDoneIcon from "../images/unfinished-task.png";
+import DoneIcon from "../images/finished-task.png";
+import { createSelectorHolder } from "./selectorHolder";
 
 function createTodoController(objectManipulator, domInterfacer, projectStructurer){
+    const selectors = createSelectorHolder();
     
     function setupRemoveIcon(element, object, objectList, objectContainer){
         const removeIcon = domInterfacer.getLiInterface(element).removeIcon;
@@ -29,10 +33,26 @@ function createTodoController(objectManipulator, domInterfacer, projectStructure
         });
     }
 
+    function setupTodoIcon(li){
+        const liIcon = li.liIcon;
+        liIcon.addEventListener("click", (event) => {
+            const li = event.target.parentElement.parentElement;
+            if (li.classList.contains(selectors.done)){
+                li.classList.remove(selectors.done);
+                liIcon.src = NotDoneIcon;
+            }
+            else {
+                liIcon.src = DoneIcon;
+                li.classList.add(selectors.done);
+            }
+        })
+    }
+
     function setupTodoListeners(todo, todoElement, todoList){
         const li = domInterfacer.getLiInterface(todoElement);
         setupRemoveIcon(todoElement, todo, todoList, projectStructurer.activeProject)
         setupTitleInput(todo, li, domInterfacer);
+        setupTodoIcon(li);
         const dateInput = li.dateInput;
         dateInput.addEventListener("change", (event) => {
             todo.date = event.target.value;

@@ -22,6 +22,7 @@ function createSelectorHolder(){
     todo : "todo",
     project : "project",
     inbox : "cInbox",
+    done: "done"
     }
 }
 
