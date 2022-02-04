@@ -29,19 +29,19 @@
         <div class="menu">
             <div class="list options">
                 <ul>
-                    <li class="inbox">
+                    <li class="cInbox project">
                         <a href="#inbox">
                             <img src="25e8de3b82dbb2f4c800.png" height="16" width="16">
                             <span>Inbox</span>
                         </a>
                     </li>
-                    <li class="today">
+                    <li class="cToday project">
                         <a href="#today">
                             <img src="ee424bd948e6a83682d5.png" height="16" width="16">
                             <span>Today</span>
                         </a>
                     </li>
-                    <li class="this-week">
+                    <li class="cThis-week project">
                         <a href="#this-week">
                             <img src="a15a91ec18fe5b7e5864.png" height="16" width="16">
                             <span>This week</span>
@@ -52,24 +52,24 @@
             <div class="list project">
                 <h2>Projects</h2>
                 <ul>
-                    <li class="default-project">
+                    <!-- <li class="cDefault-project project">
                         <a href="#default-project">
-                            <img class="list-icon" src="8a2fd82c4cdccb83bd84.png" height="16" width="16">
+                            <img class="list-icon" src="./images/project.png" height="16" width="16">
                             <span>Default project</span>
                         </a>
-                        <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16" width="16">
-                    </li>
+                        <img class="remove-icon" src="./images/remove-task.png" height="16" width="16">
+                    </li> -->
                 </ul>
-            </div>
-            <button class="add-btn project active">
-                <img src="d94315115b7d9c3602b7.png" height="16" width="16">
-                <span>Add project</span>
-            </button>
-            <div class="add-popup todo hidden">
-                <input name="title" type="text">
-                <div class="btn-container">
-                    <button class="add-btn-popup">Add</button>
-                    <button class="cancel-btn-popup">Cancel</button>
+                <button class="add-btn project active">
+                    <img src="d94315115b7d9c3602b7.png" height="16" width="16">
+                    <span>Add project</span>
+                </button>
+                <div class="add-popup project hidden">
+                    <input name="title" type="text" class="add-popup input-title">
+                    <div class="btn-container">
+                        <button class="add-popup add-btn">Add</button>
+                        <button class="add-popup cancel-btn">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,12 +78,15 @@
                 <h1>Project name</h1>
                 <div class="list todo">
                     <ul>
-                        <li class="default-to-do">
+                        <li class="cdefault-to-do">
                             <a href="#default-to-do">
-                                <img class="list-icon" src="007e9867a60317af6626.png" height="16" width="16">
+                                <img class="list-icon" src="7e6afd9a683177d29194.png" height="16" width="16">
                                 <span>Some ToDo</span>
                             </a>
-                            <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16" width="16">
+                            <div class="right-li todo">
+                                <input type="date" name="date" class="todo input-date">
+                                <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16" width="16">
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -92,10 +95,10 @@
                     Add ToDo
                 </button>
                 <div class="add-popup todo hidden">
-                    <input name="title" type="text">
+                    <input name="title" type="text" class="add-popup input-title">
                     <div class="btn-container">
-                        <button class="add-btn-popup">Add</button>
-                        <button class="cancel-btn-popup">Cancel</button>
+                        <button class="add-popup add-btn">Add</button>
+                        <button class="add-popup cancel-btn">Cancel</button>
                     </div>
                 </div>
             </div>
