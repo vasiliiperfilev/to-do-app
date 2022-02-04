@@ -9,6 +9,7 @@ import {
 } from "./selectorHolder";
 import { createObjectManipulator } from "./object-manipulator";
 import { createTodoController } from "./todo-controller";
+import { parse, isBefore, isAfter } from 'date-fns';
 
 function createProjectController(projectWindow) {
     //create objects
@@ -26,6 +27,21 @@ function createProjectController(projectWindow) {
         projectWindow.appendChild(projectPage);
     }
 
+    function showAllTodoDateRange(startDate, endDate){
+        projectWindow.innerHTML = "";
+        const content = domInterfacer.createAllProjectsPage(projectStructurer);
+        Object.values(projectStructurer.container).forEach((project) => {
+            Object.values(project.container).forEach((todo) => {
+                const todoDate = parse(todo.date, 'yyyy-MM-dd', new Date());
+                if (isAfter(todoDate, endDate) || isBefore(todoDate, startDate)){
+                    domInterfacer.hideElement(todo.liElement);
+                }
+            })
+        })
+        projectWindow.appendChild(content);
+    }
+
+    //after creating modules move this function to dom-list-functions
     function setListEventListeners(listContainer, createFunction, setupFunction) {
         const listInterface = domInterfacer.getListInterface(listContainer);
         listInterface.addBtn.addEventListener("click", () => {
@@ -69,6 +85,7 @@ function createProjectController(projectWindow) {
         chooseProject,
         setListEventListeners,
         setupProjectListeners,
+        showAllTodoDateRange
     };
 }
 

@@ -1,9 +1,14 @@
-function createBaseObject(type, title, icon, createLiElementFunction){
+function createBaseObject(type, title, icon, createLiElementFunction) {
+    let className = "";
 
-    const titleToClassName = () => {
-        return "c" + title.replace(/\W/g, "-");
+    function titleToClassName() {
+        this.className = "c" + this.title.replace(/\W/g, "-");
+        return this.className;
     }
 
+    function classNameToTitle() {
+        return this.className.substring(1).replace(/-/g, ' ');
+    }
     return {
 
         get icon() {
@@ -18,18 +23,19 @@ function createBaseObject(type, title, icon, createLiElementFunction){
             return title;
         },
 
-        set title(newTitle){
+        set title(newTitle) {
             title = newTitle;
-        },
-
-        get titleToClassName() {
-            return titleToClassName();
         },
 
         get liElement() {
             return createLiElementFunction(this);
-        }
+        },
+
+        classNameToTitle,
+        titleToClassName,
     };
 }
 
-export { createBaseObject };
+export {
+    createBaseObject
+};

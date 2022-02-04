@@ -3,12 +3,16 @@ import { createDomInterfacer } from "./dom-interfacer";
 function createObjectManipulator(){
     const domInterfacer = createDomInterfacer();
 
-    function removeObject(object, objectList, objectContainer){
-        const objectElement = objectList.querySelector(`.${object.titleToClassName}`);
+    //remove objectList everywhere when objectList as object property added
+
+    //remove projectStructurer when modules added
+    function removeObject(object, objectList, projectStructurer){
+        const objectElement = objectList.querySelector(`.${object.titleToClassName()}`);
         objectList.removeChild(objectElement);
-        objectContainer.remove(object);
+        projectStructurer.remove(object);
     }
 
+    //remove projectStructurer when modules added
     function createObject(inputForm, createFunction, projectStructurer) {
         const parameters = domInterfacer.collectInput(inputForm);
         const obj = createFunction(parameters);
@@ -17,14 +21,14 @@ function createObjectManipulator(){
     }
 
     function addObject(object, objectList, setupFunction){
-        // try{
+        try{
             const objectElement = object.liElement;
             setupFunction(object, objectElement, objectList);
             objectList.appendChild(objectElement);
-        // }
-        // catch {
-        //     alert("Alredy exists!");
-        // }
+        }
+        catch {
+            alert("Alredy exists!");
+        }
     }
 
     return {

@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/vasiliiperfilev/to-do-app/issues"
   },
-  "homepage": "https://github.com/vasiliiperfilev/to-do-app#readme"
+  "homepage": "https://github.com/vasiliiperfilev/to-do-app#readme",
+  "dependencies": {
+    "date-fns": "^2.28.0"
+  }
 }

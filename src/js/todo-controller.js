@@ -26,8 +26,14 @@ function createTodoController(objectManipulator, domInterfacer, projectStructure
         titleInput.addEventListener("keydown", (event) => {
             event.stopPropagation();
             if (event.key == "Enter"){
+                const li = event.target.parentElement.parentElement;
+                const a = event.target.parentElement
+                //make func in domListFunc changeLiClass
+                li.classList.remove(todo.titleToClassName());
                 todo.title = titleInput.value;
-                title.textContent = titleInput.value;
+                title.textContent = todo.title;
+                li.classList.add(todo.titleToClassName());
+                a.href = `#${todo.titleToClassName()}`
                 domInterfacer.replaceElement(title, titleInput);
             }
         });
@@ -48,10 +54,15 @@ function createTodoController(objectManipulator, domInterfacer, projectStructure
         })
     }
 
+    //todoElement = todo.li, todoList = projectStructurer.activeProject.domList
     function setupTodoListeners(todo, todoElement, todoList){
+        //rename liInterface
         const li = domInterfacer.getLiInterface(todoElement);
+        //reduce arguments
         setupRemoveIcon(todoElement, todo, todoList, projectStructurer.activeProject)
+        //when domInt is globall remove
         setupTitleInput(todo, li, domInterfacer);
+        //pass li.liIcon
         setupTodoIcon(li);
         const dateInput = li.dateInput;
         dateInput.addEventListener("change", (event) => {

@@ -5,8 +5,7 @@ function createProjectStructurer() {
     const projects = {};
     const containType = "project";
     const proto = createStructurer(projects, containType);
-     //create default projects
-     const inbox = createProject({
+    const inbox = createProject({
         "title": "Inbox"
     });
     proto.add(inbox);
