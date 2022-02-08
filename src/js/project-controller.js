@@ -1,28 +1,23 @@
 import {
-    createProjectStructurer
+    projectStructurer
 } from "./project-structurer";
 import {
-    createDomInterfacer
+    domInterfacer
 } from "./dom-interfacer";
 import {
-    createSelectorHolder
+    selectorHolder
 } from "./selectorHolder";
-import { createObjectManipulator } from "./object-manipulator";
-import { createTodoController } from "./todo-controller";
+import { objectManipulator } from "./object-manipulator";
+import { todoController } from "./todo-controller";
+import { listController } from "./list-controller";
 import { parse, isBefore, isAfter } from 'date-fns';
 
 function createProjectController(projectWindow) {
-    //create objects
-    const domInterfacer = createDomInterfacer();
-    const projectStructurer = createProjectStructurer();
-    const selectors = createSelectorHolder();
-    const objectManipulator = createObjectManipulator();
-    const todoController = createTodoController(objectManipulator, domInterfacer,projectStructurer);
 
     function showActiveProject() {
         const project = projectStructurer.activeProject;
         const projectPage = domInterfacer.createProjectPage(project);
-        setListEventListeners(projectPage, todoController.createTodo, todoController.setupTodoListeners);
+        listController.setListEventListeners(projectPage, todoController.createTodo, todoController.setupTodoListeners);
         projectWindow.innerHTML = "";
         projectWindow.appendChild(projectPage);
     }
@@ -31,32 +26,16 @@ function createProjectController(projectWindow) {
         projectWindow.innerHTML = "";
         const content = domInterfacer.createAllProjectsPage(projectStructurer);
         Object.values(projectStructurer.container).forEach((project) => {
+            //if project is empty hide project.projectList(when projectList make as project parameter)
             Object.values(project.container).forEach((todo) => {
                 const todoDate = parse(todo.date, 'yyyy-MM-dd', new Date());
+                //if 1 arg and if 2 arg
                 if (isAfter(todoDate, endDate) || isBefore(todoDate, startDate)){
                     domInterfacer.hideElement(todo.liElement);
                 }
             })
         })
         projectWindow.appendChild(content);
-    }
-
-    //after creating modules move this function to dom-list-functions
-    function setListEventListeners(listContainer, createFunction, setupFunction) {
-        const listInterface = domInterfacer.getListInterface(listContainer);
-        listInterface.addBtn.addEventListener("click", () => {
-            domInterfacer.cleanInput(listInterface.addPopup);
-            domInterfacer.replaceElement(listInterface.addPopup, listInterface.addBtn);
-        });
-
-        listInterface.closePopupBtn.addEventListener("click", 
-            domInterfacer.replaceElement.bind(null,  listInterface.addBtn,listInterface.addPopup));
-
-        listInterface.addPopupBtn.addEventListener("click", () => {
-            const object = objectManipulator.createObject(listInterface.addPopup, createFunction, projectStructurer)
-            objectManipulator.addObject(object, listInterface.ul, setupFunction);
-            listInterface.closePopupBtn.click();
-        });
     }
 
     function chooseProject() {
@@ -67,23 +46,25 @@ function createProjectController(projectWindow) {
         showActiveProject();
     }
 
-    function setupRemoveIcon(element, object, objectList, objectContainer){
+    function setupRemoveIcon(project){
+        const element = project.liElement
         const removeIcon = domInterfacer.getLiInterface(element).removeIcon;
         removeIcon.addEventListener("click", (event) => {
             event.stopPropagation();
-            objectManipulator.removeObject(object, objectList, objectContainer);
-            if (element.classList.contains(`${selectors.selected}`)) chooseProject.bind(domInterfacer.inbox)();
+            const ul = event.target.closest("ul");
+            objectManipulator.removeObject(project, ul);
+            if (element.classList.contains(`${selectorHolder.selected}`)) chooseProject.bind(domInterfacer.inbox)();
         });
     }
 
-    function setupProjectListeners(project, projectElement, projectList){
-        setupRemoveIcon(projectElement, project, projectList, projectStructurer);
-        projectElement.addEventListener("click", chooseProject);
+    function setupProjectListeners(project){
+        const element = project.liElement;
+        setupRemoveIcon(project);
+        element.addEventListener("click", chooseProject);
     }
 
     return {
         chooseProject,
-        setListEventListeners,
         setupProjectListeners,
         showAllTodoDateRange
     };

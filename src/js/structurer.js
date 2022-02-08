@@ -1,12 +1,12 @@
 function createStructurer(container, containType) {
-    const add = (object) => {
+    function add(object){
         if (object.title in container) return false;
         container[object.title] = object;
         return true;
     }
 
-    const remove = (object) => {
-        delete container[object.title];
+    function remove(object){
+        delete this.container[object.title];
     }
 
     const getObjectByTitle = (name) => {

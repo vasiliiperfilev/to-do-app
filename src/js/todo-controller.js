@@ -1,22 +1,25 @@
 import { createTodo } from "./todo-object";
 import NotDoneIcon from "../images/unfinished-task.png";
 import DoneIcon from "../images/finished-task.png";
-import { createSelectorHolder } from "./selectorHolder";
+import { selectorHolder } from "./selectorHolder";
+import { objectManipulator } from "./object-manipulator";
+import { domInterfacer } from "./dom-interfacer";
 
-function createTodoController(objectManipulator, domInterfacer, projectStructurer){
-    const selectors = createSelectorHolder();
+const todoController = (() => {
     
-    function setupRemoveIcon(element, object, objectList, objectContainer){
+    function setupRemoveIcon(todo){
+        const element = todo.liElement
         const removeIcon = domInterfacer.getLiInterface(element).removeIcon;
         removeIcon.addEventListener("click", (event) => {
             event.stopPropagation();
-            objectManipulator.removeObject(object, objectList, objectContainer);
+            const ul = event.target.closest("ul");
+            objectManipulator.removeObject(todo, ul);
         });
     }
 
-    function setupTitleInput(todo, li, domInterfacer){
-        const titleInput = li.titleInput;
-        const title = li.title;
+    function setupTitleInput(todo, liInterface){
+        const titleInput = liInterface.titleInput;
+        const title = liInterface.title;
         title.addEventListener("click", (event) => {
             event.stopPropagation();
             domInterfacer.replaceElement(titleInput, title);
@@ -26,9 +29,8 @@ function createTodoController(objectManipulator, domInterfacer, projectStructure
         titleInput.addEventListener("keydown", (event) => {
             event.stopPropagation();
             if (event.key == "Enter"){
-                const li = event.target.parentElement.parentElement;
-                const a = event.target.parentElement
-                //make func in domListFunc changeLiClass
+                const li = event.target.closest("li");
+                const a = event.target.closest("a");
                 li.classList.remove(todo.titleToClassName());
                 todo.title = titleInput.value;
                 title.textContent = todo.title;
@@ -39,32 +41,27 @@ function createTodoController(objectManipulator, domInterfacer, projectStructure
         });
     }
 
-    function setupTodoIcon(li){
-        const liIcon = li.liIcon;
+    function setupTodoIcon(liIcon){
         liIcon.addEventListener("click", (event) => {
             const li = event.target.parentElement.parentElement;
-            if (li.classList.contains(selectors.done)){
-                li.classList.remove(selectors.done);
+            if (li.classList.contains(selectorHolder.done)){
+                li.classList.remove(selectorHolder.done);
                 liIcon.src = NotDoneIcon;
             }
             else {
                 liIcon.src = DoneIcon;
-                li.classList.add(selectors.done);
+                li.classList.add(selectorHolder.done);
             }
         })
     }
 
-    //todoElement = todo.li, todoList = projectStructurer.activeProject.domList
-    function setupTodoListeners(todo, todoElement, todoList){
-        //rename liInterface
-        const li = domInterfacer.getLiInterface(todoElement);
-        //reduce arguments
-        setupRemoveIcon(todoElement, todo, todoList, projectStructurer.activeProject)
-        //when domInt is globall remove
-        setupTitleInput(todo, li, domInterfacer);
-        //pass li.liIcon
-        setupTodoIcon(li);
-        const dateInput = li.dateInput;
+    function setupTodoListeners(todo){
+        const todoElement = todo.liElement
+        const liInterface = domInterfacer.getLiInterface(todoElement);
+        setupRemoveIcon(todo);
+        setupTitleInput(todo, liInterface);
+        setupTodoIcon(liInterface.liIcon);
+        const dateInput = liInterface.dateInput;
         dateInput.addEventListener("change", (event) => {
             todo.date = event.target.value;
         })
@@ -74,6 +71,6 @@ function createTodoController(objectManipulator, domInterfacer, projectStructure
         setupTodoListeners,
         createTodo
     }
-}
+})()
 
-export { createTodoController };
+export { todoController };

@@ -1,14 +1,13 @@
 import { createBaseObject } from "./base-object";
 import TodoIcon from "../images/unfinished-task.png";
-import { createDomListFunctions } from "./dom-list-functions";
+import { domInterfacer } from "./dom-interfacer";
 
 function createTodo(parametersObject) {
     let title = parametersObject.title;
     let date = "";
     if (title === "") title = "Default title";
 
-    const domListFunctions = createDomListFunctions()
-    const proto = createBaseObject("todo", title, TodoIcon, domListFunctions.createTodoListElement);
+    const proto = createBaseObject("todo", title, TodoIcon, domInterfacer.createTodoListElement);
 
     return Object.assign({}, proto, { 
 

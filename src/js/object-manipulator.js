@@ -1,19 +1,17 @@
-import { createDomInterfacer } from "./dom-interfacer";
+import { domInterfacer } from "./dom-interfacer";
+import { projectStructurer } from "./project-structurer";
 
-function createObjectManipulator(){
-    const domInterfacer = createDomInterfacer();
+const objectManipulator = (() => {
 
     //remove objectList everywhere when objectList as object property added
 
-    //remove projectStructurer when modules added
-    function removeObject(object, objectList, projectStructurer){
-        const objectElement = objectList.querySelector(`.${object.titleToClassName()}`);
+    function removeObject(object, objectList){
+        const objectElement = objectList.querySelector(`.${object.titleToClassName()}.${object.type}`);
         objectList.removeChild(objectElement);
         projectStructurer.remove(object);
     }
 
-    //remove projectStructurer when modules added
-    function createObject(inputForm, createFunction, projectStructurer) {
+    function createObject(inputForm, createFunction) {
         const parameters = domInterfacer.collectInput(inputForm);
         const obj = createFunction(parameters);
         if (!projectStructurer.add(obj)) return;
@@ -36,6 +34,6 @@ function createObjectManipulator(){
         addObject,
         removeObject,
     }
-}
+})()
 
-export { createObjectManipulator }
+export { objectManipulator }

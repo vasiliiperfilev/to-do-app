@@ -1,4 +1,4 @@
-function createSelectorHolder(){
+const selectorHolder = (() => {
     
     return {
     //list selectors
@@ -24,6 +24,6 @@ function createSelectorHolder(){
     inbox : "cInbox",
     done: "done"
     }
-}
+})()
 
-export { createSelectorHolder };
+export { selectorHolder };

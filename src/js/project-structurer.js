@@ -1,7 +1,7 @@
 import { createStructurer } from "./structurer";
 import { createProject } from "./project-object";
 
-function createProjectStructurer() {
+const projectStructurer = (() => {
     const projects = {};
     const containType = "project";
     const proto = createStructurer(projects, containType);
@@ -40,6 +40,6 @@ function createProjectStructurer() {
         add,
         remove
     });
-}
+})()
 
-export { createProjectStructurer };
+export { projectStructurer };
