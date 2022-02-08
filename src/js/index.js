@@ -2,20 +2,29 @@ import "../styles/index.css";
 import { createProjectController } from "./project-controller";
 import { listController } from "./list-controller";
 import { createProject } from "./project-object";
-import { startOfToday, startOfWeek, endOfWeek } from 'date-fns'
+import { startOfToday, startOfWeek, nextMonday } from 'date-fns'
+import { domInterfacer } from "./dom-interfacer"
 
 function createStartPage() {
-    const projectWindow = document.querySelector(".content");
-    const controller = createProjectController(projectWindow);
-   
-    const projectList = document.querySelector(".list.project");
-    listController.setListEventListeners(projectList, createProject, controller.setupProjectListeners);
+    const controller = createProjectController();
+    listController.setListEventListeners(domInterfacer.projectList, createProject, controller.setupProjectListeners);
 
-    const thisWeek = document.querySelector(".cThis-week.project");
     const today = startOfToday();
-    const monday = startOfWeek(today);
-    const nextMon = endOfWeek(today);
-    thisWeek.addEventListener("click", controller.showAllTodoDateRange.bind(null, monday, nextMon));
+    domInterfacer.thisWeek.addEventListener("click", (event) => {
+        const li = event.target.closest("li")
+        domInterfacer.selectObjectElement(li, "project");
+        controller.showAllTodoDateRange(startOfWeek(today, { weekStartsOn: 1 }), nextMonday(today));
+    });
+    domInterfacer.today.addEventListener("click", (event) => {
+        const li = event.target.closest("li")
+        domInterfacer.selectObjectElement(li, "project");
+        controller.showAllTodoDateRange(today);
+    });
+    domInterfacer.inbox.addEventListener("click", (event) => {
+        controller.chooseProject.call(domInterfacer.inbox);
+        const li = event.target.closest("li")
+        domInterfacer.selectObjectElement(li, "project");  
+    })
 }
 
 createStartPage();

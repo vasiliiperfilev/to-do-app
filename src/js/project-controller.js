@@ -10,39 +10,49 @@ import {
 import { objectManipulator } from "./object-manipulator";
 import { todoController } from "./todo-controller";
 import { listController } from "./list-controller";
-import { parse, isBefore, isAfter } from 'date-fns';
+import { parse, isBefore, isAfter, isEqual } from 'date-fns';
 
-function createProjectController(projectWindow) {
+function createProjectController() {
 
     function showActiveProject() {
         const project = projectStructurer.activeProject;
         const projectPage = domInterfacer.createProjectPage(project);
         listController.setListEventListeners(projectPage, todoController.createTodo, todoController.setupTodoListeners);
-        projectWindow.innerHTML = "";
-        projectWindow.appendChild(projectPage);
+        domInterfacer.projectWindow.innerHTML = "";
+        domInterfacer.projectWindow.appendChild(projectPage);
     }
 
     function showAllTodoDateRange(startDate, endDate){
-        projectWindow.innerHTML = "";
+        domInterfacer.projectWindow.innerHTML = "";
         const content = domInterfacer.createAllProjectsPage(projectStructurer);
         Object.values(projectStructurer.container).forEach((project) => {
-            //if project is empty hide project.projectList(when projectList make as project parameter)
+            const h1 = content.querySelector(`h1.${project.titleToClassName()}`)
+            const ul = content.querySelector(`ul.${project.titleToClassName()}`)
             Object.values(project.container).forEach((todo) => {
                 const todoDate = parse(todo.date, 'yyyy-MM-dd', new Date());
-                //if 1 arg and if 2 arg
-                if (isAfter(todoDate, endDate) || isBefore(todoDate, startDate)){
-                    domInterfacer.hideElement(todo.liElement);
+                if (arguments.length == 2){
+                    if (isAfter(todoDate, endDate) || isBefore(todoDate, startDate)){
+                        ul.removeChild(todo.liElement);
+                    }
+                }
+                if (arguments.length == 1){
+                    if (!isEqual(todoDate, startDate)){
+                        ul.removeChild(todo.liElement);
+                    }
                 }
             })
+            if (ul.childNodes.length == 0){
+                domInterfacer.hideElement(h1)
+            }
         })
-        projectWindow.appendChild(content);
+        domInterfacer.projectWindow.appendChild(content);
     }
 
     function chooseProject() {
         const title = this.querySelector("span").textContent;
         const project = projectStructurer.getObjectByTitle(title);
         projectStructurer.activeProject = project;
-        domInterfacer.selectObjectElement(project);
+        domInterfacer.selectObjectElement(project.liElement, "project");
         showActiveProject();
     }
 

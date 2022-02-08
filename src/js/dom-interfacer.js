@@ -41,8 +41,10 @@ const domInterfacer = (() => {
         Object.values(projectStructurer.container).forEach((project) => {
             const h1 = document.createElement("h1");
             h1.textContent = project.title;
+            h1.classList.add(`${project.titleToClassName()}`)
             const div = domFunctions.createDiv([selectorHolder.list, project.containType]);
             const ul = document.createElement("ul");
+            ul.classList.add(`${project.titleToClassName()}`)
             Object.values(project.container).forEach(todo => {
                 const li = todo.liElement;
                 ul.append(li);
@@ -53,9 +55,8 @@ const domInterfacer = (() => {
         return content;
     }
 
-    function selectObjectElement(object){
-        const element = document.querySelector(`.${object.titleToClassName()}.${object.type}`);
-        const previousSelected = document.querySelector(`.${selectorHolder.selected}.${object.type}`);
+    function selectObjectElement(element, elementType){
+        const previousSelected = document.querySelector(`.${selectorHolder.selected}.${elementType}`);
         if (previousSelected) previousSelected.classList.remove(`${selectorHolder.selected}`);
         element.classList.add(`${selectorHolder.selected}`);
     }
@@ -90,6 +91,18 @@ const domInterfacer = (() => {
         getLiInterface,
         get inbox(){
             return document.querySelector(`.${selectorHolder.inbox}.${selectorHolder.project}`)
+        },
+        get today(){
+            return document.querySelector(".cToday.project");
+        },
+        get thisWeek(){
+            return document.querySelector(".cThis-week.project");
+        },
+        get projectList() {
+            return document.querySelector(".list.project");
+        },
+        get projectWindow() {
+            return document.querySelector(".content"); 
         }
     });
 })()
