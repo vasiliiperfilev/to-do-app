@@ -26,4 +26,4 @@ const selectorHolder = (() => {
     }
 })()
 
-export { selectorHolder };
+export { selectorHolder }

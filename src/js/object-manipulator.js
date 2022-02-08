@@ -1,31 +1,31 @@
-import { domInterfacer } from "./dom-interfacer";
-import { projectStructurer } from "./project-structurer";
+import { domInterfacer } from "./dom-interfacer"
+import { projectStructurer } from "./project-structurer"
+import { storage } from "./storage"
 
 const objectManipulator = (() => {
 
-    //remove objectList everywhere when objectList as object property added
-
     function removeObject(object, objectList){
-        const objectElement = objectList.querySelector(`.${object.titleToClassName()}.${object.type}`);
-        objectList.removeChild(objectElement);
-        projectStructurer.remove(object);
+        const objectElement = objectList.querySelector(`.${object.titleToClassName()}.${object.type}`)
+        objectList.removeChild(objectElement)
+        projectStructurer.remove(object)
     }
 
     function createObject(inputForm, createFunction) {
-        const parameters = domInterfacer.collectInput(inputForm);
-        const obj = createFunction(parameters);
-        if (!projectStructurer.add(obj)) return;
+        const parameters = domInterfacer.collectInput(inputForm)
+        const obj = createFunction(parameters)
+        if (!projectStructurer.add(obj)) return
+        storage.populateStorage()
         return obj
     }
 
     function addObject(object, objectList, setupFunction){
         try{
-            const objectElement = object.liElement;
-            setupFunction(object, objectElement, objectList);
-            objectList.appendChild(objectElement);
+            const objectElement = object.liElement
+            setupFunction(object, objectElement, objectList)
+            objectList.appendChild(objectElement)
         }
         catch {
-            alert("Alredy exists!");
+            alert("Alredy exists!")
         }
     }
 

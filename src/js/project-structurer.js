@@ -1,45 +1,58 @@
-import { createStructurer } from "./structurer";
-import { createProject } from "./project-object";
+import { createStructurer } from "./structurer"
+import { createProject } from "./project-object"
+import { todoController } from "./todo-controller"
 
 const projectStructurer = (() => {
-    const projects = {};
-    const containType = "project";
-    const proto = createStructurer(projects, containType);
+    const projects = {}
+    const containType = "project"
+    const proto = createStructurer(projects, containType)
     const inbox = createProject({
         "title": "Inbox"
-    });
-    proto.add(inbox);
-    const activeProject = proto.getObjectByTitle(inbox.title);
+    })
+    proto.add(inbox)
+    const activeProject = proto.getObjectByTitle(inbox.title)
 
     function add(object){
         if (object.type !== containType){
-            return this.activeProject.add(object);
+            return this.activeProject.add(object)
         }
         else {
-            return proto.add(object);
+            return proto.add(object)
         }
     }
 
     function remove(object){
         if (object.type !== containType){
-            return this.activeProject.remove(object);
+            return this.activeProject.remove(object)
         }
         else {
-            return proto.remove(object);
+            return proto.remove(object)
         }
+    }
+
+    function populateContainer(){
+        const projects = JSON.parse(localStorage.projects);
+        Object.keys(projects).forEach((title) => {
+            proto.add(createProject({title}))
+            Object.values(projects[title]).forEach((todoParams) => {
+                const todo = todoController.createTodo(todoParams)
+                proto.container[title].add(todo)
+            })
+        })
     }
 
     return Object.assign({}, proto, {
         get activeProject() {
-            return activeProject;
+            return activeProject
         },
 
         set activeProject(title){
-            activeProject = proto.getObjectByTitle(title);
+            activeProject = proto.getObjectByTitle(title)
         },
         add,
-        remove
-    });
+        remove, 
+        populateContainer
+    })
 })()
 
-export { projectStructurer };
+export { projectStructurer }
