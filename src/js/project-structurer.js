@@ -30,17 +30,6 @@ const projectStructurer = (() => {
         }
     }
 
-    function populateContainer(){
-        const projects = JSON.parse(localStorage.projects);
-        Object.keys(projects).forEach((title) => {
-            proto.add(createProject({title}))
-            Object.values(projects[title]).forEach((todoParams) => {
-                const todo = todoController.createTodo(todoParams)
-                proto.container[title].add(todo)
-            })
-        })
-    }
-
     return Object.assign({}, proto, {
         get activeProject() {
             return activeProject
@@ -50,8 +39,7 @@ const projectStructurer = (() => {
             activeProject = proto.getObjectByTitle(title)
         },
         add,
-        remove, 
-        populateContainer
+        remove,
     })
 })()
 

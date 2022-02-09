@@ -85,6 +85,8 @@ const domInterfacer = (() => {
 
     return Object.assign({}, domFunctions, {
         createProjectPage,
+        createAddBtn,
+        createAddPopup,
         createAllProjectsPage,
         selectObjectElement,
         getListInterface,
@@ -103,6 +105,9 @@ const domInterfacer = (() => {
         },
         get projectWindow() {
             return document.querySelector(".content") 
+        },
+        set projectList(projectList){
+            this.projectList = projectList
         }
     })
 })()

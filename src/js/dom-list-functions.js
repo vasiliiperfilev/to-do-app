@@ -33,21 +33,22 @@ function createDomListFunctions() {
         li.querySelector(`.${selectorHolder.liIcon}`).src = UndoneIcon
     }
 
-    function createTodoListElement(todo) {
-        const li = createListElement(todo)
-        if (todo.isFinished){
+    function createTodoListElement(baseObject) {
+        const li = createListElement(baseObject)
+        if (this.isFinished){
             finishTodo(li);
         }
         const a = li.querySelector("a")
         const titleInput = domFunctions.createInput([selectorHolder.todo, selectorHolder.inputTitle, selectorHolder.hidden], "title", "text")
         const rightLi = li.querySelector(`.${selectorHolder.rightLi}.${selectorHolder.todo}`)
         const dateInput = domFunctions.createInput([selectorHolder.todo, selectorHolder.inputDate], "date", "date")
-        dateInput.value = todo.date
+        dateInput.value = this.date
         a.append(titleInput)
         rightLi.prepend(dateInput)
         return li
     }
 
+    //use this to render projects list and add to start page
     function createList(object) {
         const div = domFunctions.createDiv([selectorHolder.list, object.containType])
         const ul = document.createElement("ul")

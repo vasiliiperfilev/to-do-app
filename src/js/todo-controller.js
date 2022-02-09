@@ -55,6 +55,7 @@ const todoController = (() => {
                 todo.isFinished = true
                 domInterfacer.finishTodo(li)
             }
+            storage.populateStorage()
         })
     }
 
@@ -67,6 +68,7 @@ const todoController = (() => {
         const dateInput = liInterface.dateInput
         dateInput.addEventListener("change", (event) => {
             todo.date = event.target.value
+            storage.populateStorage()
         })
     }
 

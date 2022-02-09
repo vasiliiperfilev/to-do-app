@@ -6,7 +6,7 @@ import { todoController } from "./todo-controller"
 import { listController } from "./list-controller"
 import { parse, isBefore, isAfter, isEqual } from 'date-fns'
 
-function createProjectController() {
+const projectController = (() => {
 
     function showActiveProject() {
         const project = projectStructurer.activeProject
@@ -72,8 +72,8 @@ function createProjectController() {
         setProjectListeners,
         showAllTodoDateRange
     }
-}
+})()
 
 export {
-    createProjectController
+    projectController
 }
