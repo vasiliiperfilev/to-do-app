@@ -1,16 +1,12 @@
 import { createStructurer } from "./structurer"
 import { createProject } from "./project-object"
-import { todoController } from "./todo-controller"
 
 const projectStructurer = (() => {
-    const projects = {}
     const containType = "project"
-    const proto = createStructurer(projects, containType)
-    const inbox = createProject({
-        "title": "Inbox"
-    })
+    const proto = createStructurer(containType)
+    const inbox = createProject({"title": "Inbox"})
     proto.add(inbox)
-    const activeProject = proto.getObjectByTitle(inbox.title)
+    const activeProject = proto.container[inbox.title]
 
     function add(object){
         if (object.type !== containType){
@@ -31,15 +27,14 @@ const projectStructurer = (() => {
     }
 
     return Object.assign({}, proto, {
+        add,
+        remove,
         get activeProject() {
             return activeProject
         },
-
         set activeProject(title){
-            activeProject = proto.getObjectByTitle(title)
+            activeProject = proto.container[title]
         },
-        add,
-        remove,
     })
 })()
 

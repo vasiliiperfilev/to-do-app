@@ -6,22 +6,19 @@ function createTodo(parametersObject) {
     let title = parametersObject.title
     let date = parametersObject.date || ""
     let isFinished = parametersObject.isFinished || false;
-    if (title === "") title = "Default title"
+    let type = "todo"
 
-    function allData(){
-        const title = this.title
-        const date = this.date
-        const isFinished = this.isFinished
-        return { title, date, isFinished }
-    }
-
-    const proto = createBaseObject("todo", title, TodoIcon, domInterfacer.createTodoListElement.bind(parametersObject))
+    const proto = createBaseObject(type, title, domInterfacer.createTodoLi.bind(parametersObject))
 
     return Object.assign({}, proto, { 
-        title,
         date,
         isFinished,
-        allData,
+        allData: function(){
+            const title = this.title
+            const date = this.date
+            const isFinished = this.isFinished
+            return { title, date, isFinished }
+        }
     })
 
 }

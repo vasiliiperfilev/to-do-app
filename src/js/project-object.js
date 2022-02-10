@@ -4,13 +4,11 @@ import ProjectIcon from "../images/project.png"
 import { domInterfacer } from "./dom-interfacer"
 
 function createProject(parametersObject) {
-    let title = parametersObject.title
-    if (title === "") title = "Default title"
+    let type = "project"
     
-    const todoList = {}
     const containType = "todo"
-    const proto1 = createStructurer(todoList, containType)
-    const proto2 = createBaseObject("project", title, ProjectIcon, domInterfacer.createListElement)
+    const proto1 = createStructurer(containType)
+    const proto2 = createBaseObject(type, parametersObject.title, domInterfacer.createProjectLi)
 
     return Object.assign({}, proto1, proto2)
 }

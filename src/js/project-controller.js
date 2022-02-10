@@ -44,7 +44,7 @@ const projectController = (() => {
 
     function chooseProject() {
         const title = this.querySelector("span").textContent
-        const project = projectStructurer.getObjectByTitle(title)
+        const project = projectStructurer.container[title]
         projectStructurer.activeProject = project
         domInterfacer.selectObjectElement(project.liElement, "project")
         showActiveProject()

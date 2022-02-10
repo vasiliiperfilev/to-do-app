@@ -3,23 +3,35 @@ import { selectorHolder } from "./selectorHolder"
 import RemoveIcon from "../images/remove-task.png"
 import DoneIcon from "../images/finished-task.png"
 import UndoneIcon from "../images/unfinished-task.png"
+import ProjectIcon from "../images/project.png"
+import TodoIcon from "../images/unfinished-task.png"
 
 function createDomListFunctions() {
     const domFunctions = createDomFunctions()
 
-    function createListElement(object) {
+    function createLi(object) {
         const li = document.createElement("li")
         li.classList.add(`${object.titleToClassName()}`, object.type)
         const link = document.createElement("a")
         link.href = `#${object.titleToClassName()}`
-        const elemIcon = domFunctions.createImg([selectorHolder.liIcon, object.type], object.icon, "16", "16")
         const span = document.createElement("span")
         span.innerText = object.title
         const rightLi = domFunctions.createDiv([selectorHolder.rightLi, object.type])
         const removeIcon = domFunctions.createImg([selectorHolder.removeLiIcon], RemoveIcon, "16", "16")
-        link.append(elemIcon, span)
+        link.append(span)
         rightLi.appendChild(removeIcon)
         li.append(link, rightLi)
+        return li
+    }
+
+    function addIconToLi(li, icon){
+        const elemIcon = domFunctions.createImg([selectorHolder.liIcon], icon, "16", "16")
+        li.querySelector("a").prepend(elemIcon)
+    }
+
+    function createProjectLi(baseObject){
+        const li = createLi(baseObject)
+        addIconToLi(li, ProjectIcon)
         return li
     }
 
@@ -33,8 +45,9 @@ function createDomListFunctions() {
         li.querySelector(`.${selectorHolder.liIcon}`).src = UndoneIcon
     }
 
-    function createTodoListElement(baseObject) {
-        const li = createListElement(baseObject)
+    function createTodoLi(baseObject) {
+        const li = createLi(baseObject)
+        addIconToLi(li,TodoIcon)
         if (this.isFinished){
             finishTodo(li);
         }
@@ -48,7 +61,6 @@ function createDomListFunctions() {
         return li
     }
 
-    //use this to render projects list and add to start page
     function createList(object) {
         const div = domFunctions.createDiv([selectorHolder.list, object.containType])
         const ul = document.createElement("ul")
@@ -63,8 +75,9 @@ function createDomListFunctions() {
     }
 
     return Object.assign({}, domFunctions, {
-        createListElement,
-        createTodoListElement,
+        createLi,
+        createTodoLi,
+        createProjectLi,
         createList,
         finishTodo,
         unfinishTodo
