@@ -741,42 +741,42 @@ function createDomInterfacer(){
     const domFunctions = (0,_dom_functions__WEBPACK_IMPORTED_MODULE_2__.createDomFunctions)();
     const selectors = (0,_selectorHolder__WEBPACK_IMPORTED_MODULE_3__.createSelectorHolder)();
 
-    function createListElement(object){
+    function createUlElement(object){
         const li = document.createElement("li");
         li.classList.add(`${object.titleToClassName}`, object.type);
     
         const link = document.createElement("a");
         link.href = `#${object.titleToClassName}`;
         
-        const elemIcon = domFunctions.createImg([selectors.liIcon, object.type], object.icon, "16", "16");
+        const elemIcon = domFunctions.createImg([selectors.itemIcon, object.type], object.icon, "16", "16");
     
         const span = document.createElement("span");
         span.innerText = object.title;
         
-        const rightLi = domFunctions.createDiv([selectors.rightLi, object.type])
+        const rightDiv = domFunctions.createDiv([selectors.rightDiv, object.type])
 
-        const removeIcon = domFunctions.createImg([selectors.removeLiIcon], _images_remove_task_png__WEBPACK_IMPORTED_MODULE_0__, "16", "16");
+        const removeIcon = domFunctions.createImg([selectors.removeitemIcon], _images_remove_task_png__WEBPACK_IMPORTED_MODULE_0__, "16", "16");
         
         link.append(elemIcon, span);
-        rightLi.appendChild(removeIcon);
-        li.append(link, rightLi);
+        rightDiv.appendChild(removeIcon);
+        li.append(link, rightDiv);
     
         return li;
     }
     
     function createTodoListElement(todo){
-        const li = createListElement(todo);
+        const li = createUlElement(todo);
         const a = li.querySelector("a");
         const titleInput = domFunctions.createInput([selectors.todo, selectors.inputTitle, selectors.hidden], "title", "text")
-        const rightLi = li.querySelector(`.${selectors.rightLi}.${selectors.todo}`);
+        const rightDiv = li.querySelector(`.${selectors.rightDiv}.${selectors.todo}`);
         const dateInput = domFunctions.createInput([selectors.todo, selectors.inputDate], "date", "date");
         dateInput.value = todo.date;
         a.append(titleInput);
-        rightLi.prepend(dateInput);
+        rightDiv.prepend(dateInput);
         return li
     }
 
-    function createList(object) {
+    function createUl(object) {
         const div = domFunctions.createDiv([selectors.list, object.containType])
         const ul = document.createElement("ul");
 
@@ -818,7 +818,7 @@ function createDomInterfacer(){
         const h1 = document.createElement("h1");
         h1.textContent = project.title;
 
-        const ul = createList(project);
+        const ul = createUl(project);
         const addBtn = createAddBtn("todo");
         const addPopup = createAddPopup("todo");
 
@@ -834,7 +834,7 @@ function createDomInterfacer(){
         element.classList.add("selected");
     }
 
-    function getListInterface(listContainer){
+    function getListUiElements(listContainer){
         const addBtn = listContainer.querySelector(`.${selectors.addBtn}`);
         const addPopup = listContainer.querySelector(`.${selectors.addPopup}`);
         const closePopupBtn = listContainer.querySelector(`.${selectors.addPopup} .${selectors.cancelBtn}`);
@@ -847,25 +847,25 @@ function createDomInterfacer(){
     }
 
     function getLiInterface(li){
-        const liIcon = li.querySelector(`.${selectors.liIcon}`);
-        const removeIcon = li.querySelector(`.${selectors.removeLiIcon}`);
+        const itemIcon = li.querySelector(`.${selectors.itemIcon}`);
+        const removeIcon = li.querySelector(`.${selectors.removeitemIcon}`);
         const dateInput = li.querySelector(`.${selectors.inputDate}`);
         const titleInput = li.querySelector(`.${selectors.inputTitle}`);
         const title = li.querySelector("span")
         return {
-            liIcon, removeIcon, dateInput, titleInput, title
+            itemIcon, removeIcon, dateInput, titleInput, title
         }
     }
 
     return {
-        createListElement,
+        createUlElement,
         createTodoListElement,
         createProjectPage,
         collectInput: domFunctions.collectInput,
         replaceElement: domFunctions.replaceElement,
         cleanInput: domFunctions.cleanInput,
         selectObjectElement,
-        getListInterface,
+        getListUiElements,
         getLiInterface,
         get inbox(){
             return document.querySelector(`.${selectors.inbox}.${selectors.project}`)
@@ -966,7 +966,7 @@ function createProjectController(projectWindow) {
     }
 
     function setListEventListeners(listContainer, createFunction, setupFunction) {
-        const listInterface = domInterfacer.getListInterface(listContainer);
+        const listInterface = domInterfacer.getListUiElements(listContainer);
         listInterface.addBtn.addEventListener("click", () => {
             domInterfacer.cleanInput(listInterface.addPopup);
             domInterfacer.replaceElement(listInterface.addPopup, listInterface.addBtn);
@@ -1046,7 +1046,7 @@ function createProject(parametersObject) {
     const containType = "todo";
     const domInteracer = (0,_dom_interfacer__WEBPACK_IMPORTED_MODULE_2__.createDomInterfacer)()
     const proto1 = (0,_structurer__WEBPACK_IMPORTED_MODULE_0__.createStructurer)(todoList, containType);
-    const proto2 = (0,_base_object__WEBPACK_IMPORTED_MODULE_1__.createBaseObject)("project", title, _images_project_png__WEBPACK_IMPORTED_MODULE_3__, domInteracer.createListElement);
+    const proto2 = (0,_base_object__WEBPACK_IMPORTED_MODULE_1__.createBaseObject)("project", title, _images_project_png__WEBPACK_IMPORTED_MODULE_3__, domInteracer.createUlElement);
 
     return Object.assign({}, proto1, proto2 );
 }
@@ -1132,9 +1132,9 @@ function createSelectorHolder(){
     //list selectors
     list : "list",
     //li selectors
-    liIcon : "list-icon",
-    rightLi : "right-li",
-    removeLiIcon : "remove-icon",
+    itemIcon : "list-icon",
+    rightDiv : "right-li",
+    removeitemIcon : "remove-icon",
     //todo li
     inputDate : "input-date",
     inputTitle: "input-title",
@@ -1253,15 +1253,15 @@ function createTodoController(objectManipulator, domInterfacer, projectStructure
     }
 
     function setupTodoIcon(li){
-        const liIcon = li.liIcon;
-        liIcon.addEventListener("click", (event) => {
+        const itemIcon = li.itemIcon;
+        itemIcon.addEventListener("click", (event) => {
             const li = event.target.parentElement.parentElement;
             if (li.classList.contains(selectors.done)){
                 li.classList.remove(selectors.done);
-                liIcon.src = _images_unfinished_task_png__WEBPACK_IMPORTED_MODULE_1__;
+                itemIcon.src = _images_unfinished_task_png__WEBPACK_IMPORTED_MODULE_1__;
             }
             else {
-                liIcon.src = _images_finished_task_png__WEBPACK_IMPORTED_MODULE_2__;
+                itemIcon.src = _images_finished_task_png__WEBPACK_IMPORTED_MODULE_2__;
                 li.classList.add(selectors.done);
             }
         })
