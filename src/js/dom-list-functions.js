@@ -16,53 +16,72 @@ function createDomListFunctions() {
         link.href = `#${object.titleToClassName()}`
         const span = document.createElement("span")
         span.innerText = object.title
-        const rightLi = domFunctions.createDiv([selectorHolder.rightLi, object.type])
-        const removeIcon = domFunctions.createImg([selectorHolder.removeLiIcon], RemoveIcon, "16", "16")
+        const rightDiv = domFunctions.createDiv([selectorHolder.rightDiv])
+        const removeIcon = domFunctions.createImg([selectorHolder.removeitemIcon], RemoveIcon, "16", "16")
         link.append(span)
-        rightLi.appendChild(removeIcon)
-        li.append(link, rightLi)
+        rightDiv.appendChild(removeIcon)
+        li.append(link, rightDiv)
         return li
     }
 
-    function addIconToLi(li, icon){
-        const elemIcon = domFunctions.createImg([selectorHolder.liIcon], icon, "16", "16")
-        li.querySelector("a").prepend(elemIcon)
+    function getLiChildren(li){
+        const itemIcon = li.querySelector(`.${selectorHolder.itemIcon}`)
+        const anchor = li.querySelector("a")
+        const removeIcon = li.querySelector(`.${selectorHolder.removeitemIcon}`)
+        const dateInput = li.querySelector(`.${selectorHolder.inputDate}`)
+        const titleInput = li.querySelector(`.${selectorHolder.inputTitle}`)
+        const title = li.querySelector("span")
+        const rightDiv = li.querySelector(`.${selectorHolder.rightDiv}`)
+        return {
+            itemIcon, anchor, removeIcon, dateInput, titleInput, title, rightDiv
+        }
+    }
+
+    function addIconToLi(liAnchor, icon){
+        const elemIcon = domFunctions.createImg([selectorHolder.itemIcon], icon, "16", "16")
+        liAnchor.prepend(elemIcon)
     }
 
     function createProjectLi(baseObject){
         const li = createLi(baseObject)
-        addIconToLi(li, ProjectIcon)
+        const liAnchor = getLiChildren(li).anchor
+        addIconToLi(liAnchor, ProjectIcon)
         return li
     }
 
     function finishTodo(li){
         li.classList.add(`${selectorHolder.done}`)
-        li.querySelector(`.${selectorHolder.liIcon}`).src = DoneIcon
+        getLiChildren(li).itemIcon.src = DoneIcon
     }
 
     function unfinishTodo(li){
         li.classList.remove(`${selectorHolder.done}`)
-        li.querySelector(`.${selectorHolder.liIcon}`).src = UndoneIcon
+        getLiChildren(li).itemIcon.src = UndoneIcon
+    }
+
+    function changeTodoIcon(todo, li){
+        if (todo.isFinished){
+            finishTodo(li)
+        }
+        else {
+            unfinishTodo(li)
+        }
     }
 
     function createTodoLi(baseObject) {
         const li = createLi(baseObject)
+        const liChildren = getLiChildren(li)
         addIconToLi(li,TodoIcon)
-        if (this.isFinished){
-            finishTodo(li);
-        }
-        const a = li.querySelector("a")
+        changeTodoIcon(this, li)
         const titleInput = domFunctions.createInput([selectorHolder.todo, selectorHolder.inputTitle, selectorHolder.hidden], "title", "text")
-        const rightLi = li.querySelector(`.${selectorHolder.rightLi}.${selectorHolder.todo}`)
         const dateInput = domFunctions.createInput([selectorHolder.todo, selectorHolder.inputDate], "date", "date")
         dateInput.value = this.date
-        a.append(titleInput)
-        rightLi.prepend(dateInput)
+        liChildren.anchor.append(titleInput)
+        liChildren.rightDiv.prepend(dateInput)
         return li
     }
 
-    function createList(object) {
-        const div = domFunctions.createDiv([selectorHolder.list, object.containType])
+    function createUl(object) {
         const ul = document.createElement("ul")
         for (const key in object.container) {
             const element = object.container[key]
@@ -70,15 +89,26 @@ function createDomListFunctions() {
             li.classList.remove(selectorHolder.hidden)
             ul.appendChild(li)
         }
-        div.appendChild(ul)
-        return div
+        return ul
+    }
+
+    function changeTodoLiTitle(todo, titleInput){
+        const li = todo.liElement
+        li.classList.remove(todo.titleToClassName())
+        todo.title = titleInput.value
+        getLiChildren(li).title.textContent = todo.title
+        li.classList.add(todo.titleToClassName())
+        getLiChildren(li).anchor.href = `#${todo.titleToClassName()}`
     }
 
     return Object.assign({}, domFunctions, {
         createLi,
+        getLiChildren,
         createTodoLi,
+        changeTodoIcon,
+        changeTodoLiTitle,
         createProjectLi,
-        createList,
+        createUl,
         finishTodo,
         unfinishTodo
     })

@@ -23,34 +23,30 @@ const domInterfacer = (() => {
         return div
     }
 
-    function createProjectPage(project) {
-        const content = document.createElement("div")
-        content.id = "content"
+    function createProjectDiv(project){
+        const div = domFunctions.createDiv([selectorHolder.list, project.containType])
         const h1 = document.createElement("h1")
+        h1.classList.add(project.titleToClassName())
         h1.textContent = project.title
-        const ul = domFunctions.createList(project)
-        const addBtn = createAddBtn("todo")
-        const addPopup = createAddPopup("todo")
-        content.append(h1, ul, addBtn, addPopup)
-        return content
+        const ul = domFunctions.createUl(project)
+        ul.classList.add(project.titleToClassName())
+        div.append(h1, ul)
+        return div
+    }
+    
+    function createProjectPage(project) {
+        const div = createProjectDiv(project)
+        const addBtn = createAddBtn(`${selectorHolder.todo}`)
+        const addPopup = createAddPopup(`${selectorHolder.todo}`)
+        div.append(addBtn, addPopup)
+        return div
     }
 
     function createAllProjectsPage(projectStructurer){
-        const content = document.createElement("div")
-        content.id = "content"
+        const content = domFunctions.createDiv(["all-projects"]);
         Object.values(projectStructurer.container).forEach((project) => {
-            const h1 = document.createElement("h1")
-            h1.textContent = project.title
-            h1.classList.add(`${project.titleToClassName()}`)
-            const div = domFunctions.createDiv([selectorHolder.list, project.containType])
-            const ul = document.createElement("ul")
-            ul.classList.add(`${project.titleToClassName()}`)
-            Object.values(project.container).forEach(todo => {
-                const li = todo.liElement
-                ul.append(li)
-            })
-            div.append(ul)
-            content.append(h1,div)
+            const div = createProjectDiv(project)
+            content.append(div)
         })
         return content
     }
@@ -61,7 +57,7 @@ const domInterfacer = (() => {
         element.classList.add(`${selectorHolder.selected}`)
     }
 
-    function getListInterface(listContainer){
+    function getListUiElements(listContainer){
         const addBtn = listContainer.querySelector(`.${selectorHolder.addBtn}`)
         const addPopup = listContainer.querySelector(`.${selectorHolder.addPopup}`)
         const closePopupBtn = listContainer.querySelector(`.${selectorHolder.addPopup} .${selectorHolder.cancelBtn}`)
@@ -72,39 +68,27 @@ const domInterfacer = (() => {
         }
     }
 
-    function getLiInterface(li){
-        const liIcon = li.querySelector(`.${selectorHolder.liIcon}`)
-        const removeIcon = li.querySelector(`.${selectorHolder.removeLiIcon}`)
-        const dateInput = li.querySelector(`.${selectorHolder.inputDate}`)
-        const titleInput = li.querySelector(`.${selectorHolder.inputTitle}`)
-        const title = li.querySelector("span")
-        return {
-            liIcon, removeIcon, dateInput, titleInput, title
-        }
-    }
-
     return Object.assign({}, domFunctions, {
         createProjectPage,
         createAddBtn,
         createAddPopup,
         createAllProjectsPage,
         selectObjectElement,
-        getListInterface,
-        getLiInterface,
+        getListUiElements,
         get inbox(){
             return document.querySelector(`.${selectorHolder.inbox}.${selectorHolder.project}`)
         },
         get today(){
-            return document.querySelector(".cToday.project")
+            return document.querySelector(`.${selectorHolder.today}.${selectorHolder.project}`)
         },
         get thisWeek(){
-            return document.querySelector(".cThis-week.project")
+            return document.querySelector(`.${selectorHolder.thisWeek}.${selectorHolder.project}`)
         },
         get projectList() {
-            return document.querySelector(".list.project")
+            return document.querySelector(`.${selectorHolder.projectList}`)
         },
         get projectWindow() {
-            return document.querySelector(".content") 
+            return document.querySelector(`.${selectorHolder.projectWindow}`) 
         },
         set projectList(projectList){
             this.projectList = projectList

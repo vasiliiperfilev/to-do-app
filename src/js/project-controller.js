@@ -16,6 +16,8 @@ const projectController = (() => {
         domInterfacer.projectWindow.appendChild(projectPage)
     }
 
+    //create filterStructurerByDate
+
     function showAllTodoDateRange(startDate, endDate){
         domInterfacer.projectWindow.innerHTML = ""
         const content = domInterfacer.createAllProjectsPage(projectStructurer)
@@ -50,21 +52,18 @@ const projectController = (() => {
         showActiveProject()
     }
 
-    function setupRemoveIcon(project){
-        const element = project.liElement
-        const removeIcon = domInterfacer.getLiInterface(element).removeIcon
+    function setupRemoveIcon(project, removeIcon){
         removeIcon.addEventListener("click", (event) => {
             event.stopPropagation()
             const ul = event.target.closest("ul")
             objectManipulator.removeObject(project, ul)
-            if (element.classList.contains(`${selectorHolder.selected}`)) chooseProject.bind(domInterfacer.inbox)()
+            if (li.classList.contains(`${selectorHolder.selected}`)) chooseProject.bind(domInterfacer.inbox)()
         })
     }
 
     function setProjectListeners(project){
-        const element = project.liElement
-        setupRemoveIcon(project)
-        element.addEventListener("click", chooseProject)
+        setupRemoveIcon(project, domInterfacer.getLiChildren(project.liElement).removeIcon)
+        project.liElement.addEventListener("click", chooseProject)
     }
 
     return {

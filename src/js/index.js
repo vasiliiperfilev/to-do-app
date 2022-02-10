@@ -11,18 +11,20 @@ function setStartPage() {
 
     if(localStorage.getItem("projects")) {
         storage.populateContainer()
-        const newProjectList = domInterfacer.createList(projectStructurer)
-        newProjectList.querySelector(".cInbox").classList.add("hidden")
+        const newProjectUl = domInterfacer.createUl(projectStructurer)
+        const div = domInterfacer.createDiv(["list", projectStructurer.containType])
+        div.append(newProjectUl)
+        div.querySelector(".cInbox").classList.add("hidden")
         const addBtn = domInterfacer.createAddBtn("project")
         const addPopup = domInterfacer.createAddPopup("project")
         const h2 = document.createElement("h2");
         h2.textContent = "Projects"
         const menu = document.querySelector(".menu")
-        newProjectList.prepend(h2)
-        newProjectList.append(addBtn, addPopup)
+        div.prepend(h2)
+        div.append(addBtn, addPopup)
         menu.removeChild(domInterfacer.projectList)
-        menu.appendChild(newProjectList)
-        domInterfacer.projectList = newProjectList
+        menu.appendChild(div)
+        domInterfacer.projectList = div
     }
 
     listController.setListEventListeners(domInterfacer.projectList, createProject, projectController.setProjectListeners)

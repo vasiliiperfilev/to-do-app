@@ -22,6 +22,7 @@
     margin: 0;
     padding: 0;
     font-family: "Modernist", sans-serif;
+    color: var(--font-color)
 }
 
 body {
@@ -84,6 +85,10 @@ body {
     flex: 1;
 }
 
+.list.project ul {
+    max-height: 10em;
+}
+
 .list li {
     list-style: none;
     padding: 0.5em;
@@ -128,7 +133,7 @@ body {
     display:inline;
 }
 
-.right-li.todo{
+.right-li {
     margin-left: auto;
     width: 40%;
     display: flex;
@@ -174,7 +179,7 @@ body {
 }
 
 .list h2,
-#content h1 {
+.list h1 {
     width: 100%;
     text-align: left;
     padding-bottom: 0.5em;
@@ -276,15 +281,7 @@ body .selected {
     height: 100%;
     width: 70%;
     flex: 1;
-}
-
-#content {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    color: var(--font-color);
+    color: inherit;
 }
 
 .footer {

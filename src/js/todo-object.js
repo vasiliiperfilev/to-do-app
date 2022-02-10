@@ -1,5 +1,4 @@
 import { createBaseObject } from "./base-object"
-import TodoIcon from "../images/unfinished-task.png"
 import { domInterfacer } from "./dom-interfacer"
 
 function createTodo(parametersObject) {
