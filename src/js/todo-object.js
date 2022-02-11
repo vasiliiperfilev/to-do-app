@@ -17,7 +17,7 @@ function createTodo(parametersObject) {
             const date = this.date
             const isFinished = this.isFinished
             return { title, date, isFinished }
-        }
+        },
     })
 
 }

@@ -1,7 +1,7 @@
 import { projectStructurer } from "./project-structurer";
-import { projectController } from "./project-controller";
 import { createProject } from "./project-object";
-import { todoController } from "./todo-controller";
+import { createTodo } from "./todo-object";
+import { eventListenerSetter } from "./event-listeners-setter";
 
 const storage = (() => {
     function populateStorage(){
@@ -19,11 +19,11 @@ const storage = (() => {
         const projects = JSON.parse(localStorage.projects);
         Object.keys(projects).forEach((title) => {
             const project = createProject({title})
-            projectController.setProjectListeners(project)
+            eventListenerSetter.setProjectListeners(project)
             projectStructurer.add(project)
             Object.values(projects[title]).forEach((todoParams) => {
-                const todo = todoController.createTodo(todoParams)
-                todoController.setupTodoListeners(todo)
+                const todo = createTodo(todoParams)
+                eventListenerSetter.setTodoListeners(todo)
                 projectStructurer.container[title].add(todo)
             })
         })   

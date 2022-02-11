@@ -95,7 +95,7 @@ function createDomListFunctions() {
     function changeTodoLiTitle(todo, titleInput){
         const li = todo.liElement
         li.classList.remove(todo.titleToClassName())
-        todo.title = titleInput.value
+        todo.changeTitle(titleInput.value)
         getLiChildren(li).title.textContent = todo.title
         li.classList.add(todo.titleToClassName())
         getLiChildren(li).anchor.href = `#${todo.titleToClassName()}`

@@ -1,8 +1,13 @@
 function createBaseObject(type, title, createLiElementFunction) {
-    if (title === "") title = "Default title"
+    function changeTitle(newTitle) {
+        if (newTitle === "" || newTitle == null) newTitle = "Default title"
+        title = newTitle
+    }
+    changeTitle(title)
     return {
         type,
         className: "",
+        changeTitle,
         classNameToTitle: function () {
             return this.className.substring(1).replace(/-/g, ' ')
         },
@@ -16,9 +21,9 @@ function createBaseObject(type, title, createLiElementFunction) {
         get title(){
             return title
         },
-        set title(title) {
-            this.title = title
-            if (title === "") this.title = "Default title"
+        set title(newTitle) {
+            title = newTitle
+            if (newTitle === "" || newTitle == null) title = "Default title"
         }
     }
 }

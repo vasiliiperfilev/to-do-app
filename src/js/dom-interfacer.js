@@ -42,11 +42,11 @@ const domInterfacer = (() => {
         return div
     }
 
-    function createAllProjectsPage(projectStructurer){
+    function createAllProjectsPage(projectsContainer){
         const content = domFunctions.createDiv(["all-projects"]);
-        Object.values(projectStructurer.container).forEach((project) => {
+        Object.values(projectsContainer).forEach((project) => {
             const div = createProjectDiv(project)
-            content.append(div)
+            if (div.querySelector("ul").childNodes.length > 0) content.append(div)
         })
         return content
     }
@@ -57,14 +57,19 @@ const domInterfacer = (() => {
         element.classList.add(`${selectorHolder.selected}`)
     }
 
+    function selectClosestProjectLi(event){
+        const li = event.target.closest("li")
+        selectObjectElement(li, "project")
+    }
+
     function getListUiElements(listContainer){
         const addBtn = listContainer.querySelector(`.${selectorHolder.addBtn}`)
         const addPopup = listContainer.querySelector(`.${selectorHolder.addPopup}`)
         const closePopupBtn = listContainer.querySelector(`.${selectorHolder.addPopup} .${selectorHolder.cancelBtn}`)
         const ul = listContainer.querySelector(`.${selectorHolder.list} ul`)
-        const addPopupBtn = listContainer.querySelector(`.${selectorHolder.addPopup}.${selectorHolder.addBtn}`)
+        const popupAddBtn = listContainer.querySelector(`.${selectorHolder.addPopup}.${selectorHolder.addBtn}`)
         return {
-            addBtn, addPopup, addPopupBtn, closePopupBtn, ul
+            addBtn, addPopup, popupAddBtn, closePopupBtn, ul
         }
     }
 
@@ -75,6 +80,7 @@ const domInterfacer = (() => {
         createAllProjectsPage,
         selectObjectElement,
         getListUiElements,
+        selectClosestProjectLi,
         get inbox(){
             return document.querySelector(`.${selectorHolder.inbox}.${selectorHolder.project}`)
         },

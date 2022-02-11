@@ -1,6 +1,5 @@
 import "../styles/index.css"
-import { projectController } from "./project-controller"
-import { listController } from "./list-controller"
+import { eventListenerSetter } from "./event-listeners-setter"
 import { createProject } from "./project-object"
 import { startOfToday, startOfWeek, nextMonday } from 'date-fns'
 import { domInterfacer } from "./dom-interfacer"
@@ -10,6 +9,7 @@ import { storage } from "./storage"
 function setStartPage() {
 
     if(localStorage.getItem("projects")) {
+        //reduce this and done
         storage.populateContainer()
         const newProjectUl = domInterfacer.createUl(projectStructurer)
         const div = domInterfacer.createDiv(["list", projectStructurer.containType])
@@ -27,24 +27,14 @@ function setStartPage() {
         domInterfacer.projectList = div
     }
 
-    listController.setListEventListeners(domInterfacer.projectList, createProject, projectController.setProjectListeners)
-
     const today = startOfToday()
-    domInterfacer.thisWeek.addEventListener("click", (event) => {
-        const li = event.target.closest("li")
-        domInterfacer.selectObjectElement(li, "project")
-        projectController.showAllTodoDateRange(startOfWeek(today, { weekStartsOn: 1 }), nextMonday(today))
-    })
-    domInterfacer.today.addEventListener("click", (event) => {
-        const li = event.target.closest("li")
-        domInterfacer.selectObjectElement(li, "project")
-        projectController.showAllTodoDateRange(today)
-    })
-    domInterfacer.inbox.addEventListener("click", (event) => {
-        projectController.chooseProject.call(domInterfacer.inbox)
-        const li = event.target.closest("li")
-        domInterfacer.selectObjectElement(li, "project")  
-    })
+    const weekStart = startOfWeek(today, { weekStartsOn: 1 })
+    const weekEnd = nextMonday(today)
+
+    eventListenerSetter.setListEventListeners(domInterfacer.projectList, createProject, eventListenerSetter.setProjectListeners)
+    eventListenerSetter.setDateFilters(domInterfacer.thisWeek, projectStructurer.isInDateRange, weekStart, weekEnd)
+    eventListenerSetter.setDateFilters(domInterfacer.today, projectStructurer.isOnDate, today)
+    eventListenerSetter.setInbox(domInterfacer.inbox)
 
     domInterfacer.inbox.click()
 }

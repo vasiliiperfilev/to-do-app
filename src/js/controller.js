@@ -2,11 +2,10 @@ import { domInterfacer } from "./dom-interfacer"
 import { projectStructurer } from "./project-structurer"
 import { storage } from "./storage"
 
-const objectManipulator = (() => {
+const controller = (() => {
 
     function removeObject(object, objectList){
-        const objectElement = objectList.querySelector(`.${object.titleToClassName()}.${object.type}`)
-        objectList.removeChild(objectElement)
+        objectList.removeChild(object.liElement)
         projectStructurer.remove(object)
     }
 
@@ -21,7 +20,7 @@ const objectManipulator = (() => {
     function addObject(object, objectList, setupFunction){
         try{
             const objectElement = object.liElement
-            setupFunction(object, objectElement, objectList)
+            setupFunction(object)
             objectList.appendChild(objectElement)
         }
         catch {
@@ -36,4 +35,4 @@ const objectManipulator = (() => {
     }
 })()
 
-export { objectManipulator }
+export { controller }
