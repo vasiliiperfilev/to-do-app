@@ -839,10 +839,10 @@ function createDomInterfacer(){
         const addPopup = listContainer.querySelector(`.${selectors.addPopup}`);
         const closePopupBtn = listContainer.querySelector(`.${selectors.addPopup} .${selectors.cancelBtn}`);
         const ul = listContainer.querySelector(`.${selectors.list} ul`);
-        const addPopupBtn = listContainer.querySelector(`.${selectors.addPopup}.${selectors.addBtn}`);
+        const popupAddBtn = listContainer.querySelector(`.${selectors.addPopup}.${selectors.addBtn}`);
 
         return {
-            addBtn, addPopup, addPopupBtn, closePopupBtn, ul
+            addBtn, addPopup, popupAddBtn, closePopupBtn, ul
         }
     }
 
@@ -975,7 +975,7 @@ function createProjectController(projectWindow) {
         listInterface.closePopupBtn.addEventListener("click", 
             domInterfacer.replaceElement.bind(null,  listInterface.addBtn,listInterface.addPopup));
 
-        listInterface.addPopupBtn.addEventListener("click", () => {
+        listInterface.popupAddBtn.addEventListener("click", () => {
             const object = objectManipulator.createObject(listInterface.addPopup, createFunction, projectStructurer)
             objectManipulator.addObject(object, listInterface.ul, setupFunction);
             listInterface.closePopupBtn.click();
