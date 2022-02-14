@@ -26,7 +26,7 @@ function resetProjectsList(){
 
 function getDates(){
     const today = startOfToday()
-    const weekStart = startOfWeek(today, { weekStartsOn: 1 })
+    const weekStart = startOfWeek(today, { weekStartsOn: 0 })
     const weekEnd = nextMonday(today)
     return { today, weekStart, weekEnd }
 }
