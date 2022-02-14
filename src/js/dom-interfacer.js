@@ -24,21 +24,22 @@ const domInterfacer = (() => {
     }
 
     function createProjectDiv(project){
-        const div = domFunctions.createDiv([selectorHolder.list, project.containType])
-        const h1 = document.createElement("h1")
-        h1.classList.add(project.titleToClassName())
-        h1.textContent = project.title
-        const ul = domFunctions.createUl(project)
-        ul.classList.add(project.titleToClassName())
-        div.append(h1, ul)
+        const elements = domFunctions.createDivUlElements(project, "h1")
+        const div = elements.div
+        elements.header.classList.add(project.titleToClassName())
+        elements.ul.classList.add(project.titleToClassName())
         return div
+    }
+
+    function addPopupInterface(div, addType){
+        const addBtn = createAddBtn(`${addType}`)
+        const addPopup = createAddPopup(`${addType}`)
+        div.append(addBtn, addPopup)
     }
     
     function createProjectPage(project) {
         const div = createProjectDiv(project)
-        const addBtn = createAddBtn(`${selectorHolder.todo}`)
-        const addPopup = createAddPopup(`${selectorHolder.todo}`)
-        div.append(addBtn, addPopup)
+        addPopupInterface(div, selectorHolder.todo)
         return div
     }
 
@@ -49,6 +50,13 @@ const domInterfacer = (() => {
             if (div.querySelector("ul").childNodes.length > 0) content.append(div)
         })
         return content
+    }
+
+    function createProjectList(projectStructurer) {
+        const div = domFunctions.createDivUlElements(projectStructurer, "h2").div
+        addPopupInterface(div, selectorHolder.project)
+        div.querySelector(`.${selectorHolder.inbox}`).classList.add(`${selectorHolder.hidden}`)
+        return div
     }
 
     function selectObjectElement(element, elementType){
@@ -75,9 +83,8 @@ const domInterfacer = (() => {
 
     return Object.assign({}, domFunctions, {
         createProjectPage,
-        createAddBtn,
-        createAddPopup,
         createAllProjectsPage,
+        createProjectList,
         selectObjectElement,
         getListUiElements,
         selectClosestProjectLi,
@@ -95,6 +102,9 @@ const domInterfacer = (() => {
         },
         get projectWindow() {
             return document.querySelector(`.${selectorHolder.projectWindow}`) 
+        },
+        get menu() {
+            return document.querySelector(`.${selectorHolder.menu}`)
         },
         set projectList(projectList){
             this.projectList = projectList

@@ -1,6 +1,7 @@
 import { domInterfacer } from "./dom-interfacer"
 import { projectStructurer } from "./project-structurer"
 import { createTodo } from "./todo-object"
+import { createProject } from "./project-object"
 import { setAddBtn, setClosePopupBtn, setDateInput, setRemoveIcon, 
     setTitle, setTitleInput, setPopupAddBtn, setTodoIcon, showAllTodoByFilter } from './event-listener-functions'
 
@@ -58,6 +59,13 @@ const eventListenerSetter = (() => {
             domInterfacer.selectClosestProjectLi(event)
         })
     }
+
+    function setStartPageEventListeners(today, weekStart, weekEnd){
+        setListEventListeners(domInterfacer.projectList, createProject, eventListenerSetter.setProjectListeners)
+        setDateFilters(domInterfacer.thisWeek, projectStructurer.isInDateRange, weekStart, weekEnd)
+        setDateFilters(domInterfacer.today, projectStructurer.isOnDate, today)
+        setInbox(domInterfacer.inbox)
+    }
     
     return {
         setListEventListeners,
@@ -65,7 +73,8 @@ const eventListenerSetter = (() => {
         setTodoListeners,
         showAllTodoByFilter,
         setDateFilters,
-        setInbox
+        setInbox,
+        setStartPageEventListeners
     }
 })()
 

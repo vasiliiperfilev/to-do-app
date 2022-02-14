@@ -12,11 +12,6 @@
 
 <body>
     <div class="header">
-        <svg class="menu-icon" height="24" width="24">
-            <path
-                d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z">
-            </path>
-        </svg>
         <div class="logo">
             ToDoApp
             <svg class="logo-icon" height="24" width="55">
@@ -74,22 +69,20 @@
             </div>
         </div>
         <div class="content">
-            <div id="content">
+            <div class="list todo">
                 <h1>Project name</h1>
-                <div class="list todo">
-                    <ul>
-                        <li class="cdefault-to-do">
-                            <a href="#default-to-do">
-                                <img class="list-icon" src="7e6afd9a683177d29194.png" height="16" width="16">
-                                <span>Some ToDo</span>
-                            </a>
-                            <div class="right-li todo">
-                                <input type="date" name="date" class="todo input-date">
-                                <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16" width="16">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <ul>
+                    <li class="cdefault-to-do">
+                        <a href="#default-to-do">
+                            <img class="list-icon" src="7e6afd9a683177d29194.png" height="16" width="16">
+                            <span>Some ToDo</span>
+                        </a>
+                        <div class="right-li todo">
+                            <input type="date" name="date" class="todo input-date">
+                            <img class="remove-icon" src="3bf51407e8d747da91c2.png" height="16" width="16">
+                        </div>
+                    </li>
+                </ul>
                 <button class="add-btn todo active">
                     <img src="d94315115b7d9c3602b7.png" height="16" width="16">
                     Add ToDo
@@ -102,6 +95,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="footer">

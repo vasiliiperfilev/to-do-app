@@ -3,8 +3,10 @@ import { createProject } from "./project-object"
 import { isAfter, isBefore, isSameDay, parseISO } from "date-fns";
 
 const projectStructurer = (() => {
+    const title = 'Projects'
     const containType = "project"
     const proto = createStructurer(containType)
+    //default inbox project setup
     const inbox = createProject({"title": "Inbox"})
     proto.add(inbox)
     const activeProject = proto.container[inbox.title]
@@ -62,6 +64,9 @@ const projectStructurer = (() => {
         set activeProject(project){
             activeProject = project
         },
+        get title() {
+            return title
+        }
     })
 })()
 

@@ -15,6 +15,8 @@ const storage = (() => {
         const stringProjects = JSON.stringify(projects)
         localStorage.setItem("projects", stringProjects)
     }
+
+    //move to controller
     function populateContainer(){
         const projects = JSON.parse(localStorage.projects);
         Object.keys(projects).forEach((title) => {

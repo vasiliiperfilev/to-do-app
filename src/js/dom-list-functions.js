@@ -101,6 +101,20 @@ function createDomListFunctions() {
         getLiChildren(li).anchor.href = `#${todo.titleToClassName()}`
     }
 
+    function createHeader(object, headerTag){
+        const header = document.createElement(headerTag)
+        header.textContent = object.title
+        return header
+    }
+
+    function createDivUlElements(project, headerTag){
+        const div = domFunctions.createDiv([selectorHolder.list, project.containType])
+        const header = createHeader(project, headerTag)
+        const ul = createUl(project)
+        div.append(header, ul)
+        return { div, header, ul }
+    }
+
     return Object.assign({}, domFunctions, {
         createLi,
         getLiChildren,
@@ -109,8 +123,10 @@ function createDomListFunctions() {
         changeTodoLiTitle,
         createProjectLi,
         createUl,
+        createDivUlElements,
         finishTodo,
-        unfinishTodo
+        unfinishTodo,
+        createHeader
     })
 }
 

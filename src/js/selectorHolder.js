@@ -26,6 +26,7 @@ const selectorHolder = (() => {
     thisWeek: "cThis-week",
     projectList: "list.project",
     projectWindow: "content",
+    menu: "menu",
     done: "done"
     }
 })()
