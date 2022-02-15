@@ -45,11 +45,26 @@ const controller = (() => {
         });   
     }
 
+    function addTutorialTodo(){
+        const tutorialTodo = new Todo({title: "Click me to change description!"});
+        eventListenerSetter.setTodoListeners(tutorialTodo);
+        projectStructurer.container["Inbox"].add(tutorialTodo);
+    }
+
+    function setProjectStructurer(){
+        if(localStorage.getItem("projects")) {
+            populateContainer();
+        }
+        else {
+            addTutorialTodo();
+        };
+    }
+
     return {
         createObject,
         addObject,
         removeObject,
-        populateContainer
+        setProjectStructurer
     };
 })();
 

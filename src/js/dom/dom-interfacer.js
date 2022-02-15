@@ -60,8 +60,8 @@ const domInterfacer = (() => {
         catch { }
     }
 
-    function createProjectList(projectStructurer) {
-        const div = domFunctions.createDivUlElements(projectStructurer, "h2").div;
+    function createProjectList() {
+        const div = domFunctions.createDivUlElements(this, "h2").div;
         addPopupInterface(div, selectorHolder.project);
         tryHideInbox(div);
         return div;

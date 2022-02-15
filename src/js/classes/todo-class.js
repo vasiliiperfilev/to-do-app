@@ -12,7 +12,7 @@ class Todo extends BaseObject{
         this.date = parametersObject.date;
         this.isFinished = parametersObject.isFinished;
         this.createDomElement = domInterfacer.createTodoLi;
-        this._domElement = this.createDomElement(this);
+        this.domElement = this.createDomElement(this);
     }
 
     get allData(){

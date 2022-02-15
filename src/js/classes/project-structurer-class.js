@@ -1,6 +1,8 @@
 import { Project } from "./project-class";
 import { domInterfacer } from "../dom/dom-interfacer";
 import { isAfter, isBefore, isSameDay, parseISO } from "date-fns";
+import { Todo } from "./todo-class";
+import { eventListenerSetter } from "../event-listeners/event-listeners-setter";
 
 class ProjectStructurer extends Project{
     static containClass = Project.name.toLowerCase();
@@ -9,7 +11,7 @@ class ProjectStructurer extends Project{
     constructor(parametersObject){
         super(parametersObject);
         this.createDomElement = domInterfacer.createProjectList;
-        this._domElement = this.createDomElement(this);
+        this.domElement = this.createDomElement(this);
     }
 
     get activeProject() {

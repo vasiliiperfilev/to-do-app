@@ -7,10 +7,8 @@ import { projectStructurer } from "../classes/project-structurer-class";
 import { controller } from "./controller";
 
 function setStartPage() {
-    if(localStorage.getItem("projects")) {
-        controller.populateContainer();
-        resetProjectsList();
-    };
+    controller.setProjectStructurer();
+    resetProjectsList();
     const dates = getDates();
     eventListenerSetter.setStartPageEventListeners(dates.today, dates.weekStart, dates.weekEnd);
     domInterfacer.inbox.click();
