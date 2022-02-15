@@ -28,7 +28,10 @@
 .todo.input-title {
     width: 100%;
     border-radius: 0.2em;
-    margin: 0.1em
+    margin: 0.1em;
+    white-space: initial;
+    word-break: break-word;
+    overflow: auto;
 }
 
 .todo.input-date:focus {

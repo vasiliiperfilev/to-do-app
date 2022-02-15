@@ -1,6 +1,5 @@
 class BaseObject{
-    title;
-
+    
     constructor (title){
         this.title = title;
     }

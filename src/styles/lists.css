@@ -27,8 +27,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    white-space: nowrap;
-    overflow: hidden;
+    white-space: initial;
+    word-break: break-word;
+    overflow: auto;
 }
 
 .list li:hover .remove-icon {
@@ -41,6 +42,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .right-li {
+        min-width: 180px;
+    }
 }
 
 .list a {

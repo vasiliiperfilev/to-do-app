@@ -57,6 +57,12 @@ body {
     align-items: center;
 }
 
+@media screen and (max-width: 600px) {
+    .main {
+        flex-direction: column;
+    }
+}
+
 .menu {
     width: 20%;
     min-width: 200px;
@@ -64,6 +70,13 @@ body {
     background-color: var(--background-color);
     color: var(--font-color);
     padding: 1em;
+}
+
+@media screen and (max-width: 600px) {
+    .menu {
+        width: 100%;
+        height: auto;
+    }
 }
 
 body .hidden {
@@ -85,6 +98,13 @@ body .selected {
     width: 70%;
     flex: 1;
     color: inherit;
+}
+
+@media screen and (max-width: 600px) {
+    .content {
+        width: 100%;
+        padding: 2em 2em;
+    }
 }
 
 .footer {
