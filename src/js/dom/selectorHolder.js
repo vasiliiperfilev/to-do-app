@@ -4,9 +4,9 @@ const selectorHolder = (() => {
     //list selectors
     list : "list",
     //li selectors
-    liIcon : "list-icon",
-    rightLi : "right-li",
-    removeLiIcon : "remove-icon",
+    itemIcon : "list-icon",
+    rightDiv : "right-li",
+    removeitemIcon : "remove-icon",
     //todo li
     inputDate : "input-date",
     inputTitle: "input-title",
@@ -22,8 +22,13 @@ const selectorHolder = (() => {
     todo : "todo",
     project : "project",
     inbox : "cInbox",
+    today: "cToday",
+    thisWeek: "cThis-week",
+    projectList: "list.project",
+    projectWindow: "content",
+    menu: "menu",
     done: "done"
     }
-})()
+})();
 
-export { selectorHolder }
+export { selectorHolder };

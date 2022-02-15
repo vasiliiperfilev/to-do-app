@@ -1,0 +1,60 @@
+.add-popup {
+    width: 100%;;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    gap: 0.5em;
+}
+
+.add-popup > * {
+    width: 100%;
+}
+
+.add-popup input {
+    border-radius: 0.5em;
+    height: 3em;
+    padding: 0.5em;
+    font-size: 16px;
+    border: 0.5px solid var(--header-background-color);
+}
+
+.add-popup input:focus {
+    outline: none;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-container button {
+    width: 45%;
+    height: 3em;
+    border-radius: 0.5em;
+    font-size: 16px;
+    font-weight: bold;
+    border:none;
+    cursor: pointer;
+    color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-popup.add-btn {
+    background-color: rgb(170, 255, 170);
+}
+
+.add-popup.cancel-btn {
+    background-color: rgb(255, 190, 190);
+}
+
+.add-popup.add-btn:hover {
+    background-color: rgb(144, 236, 144);
+}
+
+.add-popup.cancel-btn:hover {
+    background-color: #f5b2b2;
+}
