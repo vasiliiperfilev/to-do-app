@@ -1,4 +1,4 @@
-import { projectStructurer } from "./project-structurer";
+import { projectStructurer } from "../classes/project-structurer-class";
 
 const storage = (() => {
     function populateStorage(){

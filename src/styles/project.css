@@ -1,0 +1,17 @@
+.list.project ul {
+    max-height: 10em;
+}
+
+.list.project li,
+.list.options li {
+    background-color: var(--background-color);
+}
+
+.list li:hover,
+.menu .add-btn:hover {
+    background-color: var(--menu-hover-background);
+}
+
+#content .add-btn:hover {
+    background-color: var(--content-hover-background);
+}

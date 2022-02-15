@@ -1,7 +1,7 @@
-import { domInterfacer } from "./dom-interfacer";
-import { controller } from "./controller";
-import { storage } from "./storage";
-import { projectStructurer } from "./project-structurer";
+import { domInterfacer } from "../dom/dom-interfacer";
+import { controller } from "../high-order-functions/controller";
+import { storage } from "../high-order-functions/storage";
+import { projectStructurer } from "../classes/project-structurer-class";
 
 function setAddBtn(listInterface){
     listInterface.addBtn.addEventListener("click", () => {

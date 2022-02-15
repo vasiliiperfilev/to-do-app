@@ -1,9 +1,9 @@
-import { domInterfacer } from "./dom-interfacer";
-import { projectStructurer } from "./project-structurer";
+import { domInterfacer } from "../dom/dom-interfacer";
+import { projectStructurer } from "../classes/project-structurer-class";
 import { storage } from "./storage";
-import { Project } from "./project-object";
-import { Todo } from "./todo-object";
-import { eventListenerSetter } from "./event-listeners-setter";
+import { Project } from "../classes/project-class";
+import { Todo } from "../classes/todo-class";
+import { eventListenerSetter } from "../event-listeners/event-listeners-setter";
 
 const controller = (() => {
 

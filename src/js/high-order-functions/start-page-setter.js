@@ -1,8 +1,9 @@
-import "../styles/index.css";
-import { eventListenerSetter } from "./event-listeners-setter";
+import "../../styles/index.css";
+import "../../styles/scrollBar.css";
+import { eventListenerSetter } from "../event-listeners/event-listeners-setter";
 import { startOfToday, startOfWeek, nextMonday } from 'date-fns';
-import { domInterfacer } from "./dom-interfacer";
-import { projectStructurer } from "./project-structurer";
+import { domInterfacer } from "../dom/dom-interfacer";
+import { projectStructurer } from "../classes/project-structurer-class";
 import { controller } from "./controller";
 
 function setStartPage() {

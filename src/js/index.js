@@ -1,3 +1,3 @@
-import { setStartPage } from "./start-page-setter";
+import { setStartPage } from "./high-order-functions/start-page-setter";
 
 setStartPage();

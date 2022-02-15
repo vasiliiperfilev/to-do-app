@@ -1,5 +1,5 @@
-import { Project } from "./project-object";
-import { domInterfacer } from "./dom-interfacer";
+import { Project } from "./project-class";
+import { domInterfacer } from "../dom/dom-interfacer";
 import { isAfter, isBefore, isSameDay, parseISO } from "date-fns";
 
 class ProjectStructurer extends Project{

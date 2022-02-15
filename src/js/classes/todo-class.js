@@ -1,5 +1,6 @@
-import { BaseObject } from "./base-object";
-import { domInterfacer } from "./dom-interfacer";
+import "../../styles/todo.css";
+import { BaseObject } from "./base-class";
+import { domInterfacer } from "../dom/dom-interfacer";
 
 
 class Todo extends BaseObject{

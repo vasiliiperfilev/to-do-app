@@ -1,7 +1,7 @@
-import { domInterfacer } from "./dom-interfacer";
-import { ProjectStructurer, projectStructurer } from "./project-structurer";
-import { Todo } from "./todo-object";
-import { Project } from "./project-object";
+import { domInterfacer } from "../dom/dom-interfacer";
+import { ProjectStructurer, projectStructurer } from "../classes/project-structurer-class";
+import { Todo } from "../classes/todo-class";
+import { Project } from "../classes/project-class";
 import { setAddBtn, setClosePopupBtn, setDateInput, setRemoveIcon, 
     setTitle, setTitleInput, setPopupAddBtn, setTodoIcon, showAllTodoByFilter } from './event-listener-functions';
 

@@ -1,10 +1,11 @@
+import "../../styles/lists.css";
 import { createDomFunctions } from "./dom-basic-functions";
 import { selectorHolder } from "./selectorHolder";
-import RemoveIcon from "../images/remove-task.png";
-import DoneIcon from "../images/finished-task.png";
-import UndoneIcon from "../images/unfinished-task.png";
-import ProjectIcon from "../images/project.png";
-import TodoIcon from "../images/unfinished-task.png";
+import RemoveIcon from "../../images/remove-task.png";
+import DoneIcon from "../../images/finished-task.png";
+import UndoneIcon from "../../images/unfinished-task.png";
+import ProjectIcon from "../../images/project.png";
+import TodoIcon from "../../images/unfinished-task.png";
 
 function createDomListFunctions() {
     const domFunctions = createDomFunctions();
@@ -95,7 +96,7 @@ function createDomListFunctions() {
     function changeTodoLiTitle(todo, titleInput){
         const li = todo.domElement;
         li.classList.remove(todo.titleToCssClassName());
-        todo.changeTitle(titleInput.value);
+        todo.title = titleInput.value;
         getLiChildren(li).title.textContent = todo.title;
         li.classList.add(todo.titleToCssClassName());
         getLiChildren(li).anchor.href = `#${todo.titleToCssClassName()}`;

@@ -1,6 +1,7 @@
-import { BaseObject } from "./base-object";
-import { domInterfacer } from "./dom-interfacer";
-import { Todo } from "./todo-object";
+import "../../styles/project.css";
+import { BaseObject } from "./base-class";
+import { domInterfacer } from "../dom/dom-interfacer";
+import { Todo } from "./todo-class";
 
 class Project extends BaseObject{
     #container = {};

@@ -1,6 +1,7 @@
-import AddIcon from "../images/add-icon.png"
-import { createDomListFunctions } from "./dom-list-functions"
-import { selectorHolder } from "./selectorHolder"
+import "../../styles/addPopup.css";
+import AddIcon from "../../images/add-icon.png";
+import { createDomListFunctions } from "./dom-list-functions";
+import { selectorHolder } from "./selectorHolder";
 
 const domInterfacer = (() => {
     const domFunctions = createDomListFunctions();
