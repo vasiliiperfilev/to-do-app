@@ -1,31 +1,35 @@
-function createBaseObject(type, title, createLiElementFunction) {
-    function changeTitle(newTitle) {
-        if (newTitle === "" || newTitle == null) newTitle = "Default title"
-        title = newTitle
+class BaseObject{
+    title;
+
+    constructor (title){
+        this.title = title;
     }
-    changeTitle(title)
-    return {
-        type,
-        className: "",
-        changeTitle,
-        classNameToTitle: function () {
-            return this.className.substring(1).replace(/-/g, ' ')
-        },
-        titleToClassName: function () {
-            this.className = "c" + this.title.replace(/\W/g, "-")
-            return this.className
-        },
-        get liElement() {
-            return createLiElementFunction(this)
-        },
-        get title(){
-            return title
-        },
-        set title(newTitle) {
-            title = newTitle
-            if (newTitle === "" || newTitle == null) title = "Default title"
-        }
+
+    get title(){
+        return this._title;
+    }
+    set title(title){
+        if (title === "" || title == null) title = "Default title";
+        this._title = title;
+    }
+    get domElement() {
+        return this._domElement;
+    }
+    set domElement(domElement){
+        this._domElement = domElement;
+    }
+    
+    createDomElement(){ }
+    cssClassNameToTitle() {
+        return this.cssClassName.substring(1).replace(/-/g, ' ');
+    }
+    titleToCssClassName() {
+        this.cssClassName = "c" + this.title.replace(/\W/g, "-");
+        return this.cssClassName
+    }
+    resetDomElement() {
+        this._domElement = this.createDomElement(this);
     }
 }
 
-export { createBaseObject }
+export { BaseObject };

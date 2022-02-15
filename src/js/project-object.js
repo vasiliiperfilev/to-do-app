@@ -1,16 +1,29 @@
-import { createStructurer } from "./structurer"
-import { createBaseObject } from "./base-object"
-import ProjectIcon from "../images/project.png"
-import { domInterfacer } from "./dom-interfacer"
+import { BaseObject } from "./base-object";
+import { domInterfacer } from "./dom-interfacer";
+import { Todo } from "./todo-object";
 
-function createProject(parametersObject) {
-    let type = "project"
-    
-    const containType = "todo"
-    const proto1 = createStructurer(containType)
-    const proto2 = createBaseObject(type, parametersObject.title, domInterfacer.createProjectLi)
+class Project extends BaseObject{
+    #container = {};
+    static containClass = Todo.name.toLowerCase();
 
-    return Object.assign({}, proto1, proto2)
+    constructor(parametersObject){
+        super(parametersObject.title);
+        this.createDomElement = domInterfacer.createProjectLi;
+        this.domElement = this.createDomElement(this);
+    }
+
+    get container() {
+        return this.#container;
+    }
+
+    add(object){
+        if (object.title in this.#container) return false;
+        this.#container[object.title] = object;
+        return true;
+    }
+    remove(object){
+        delete this.#container[object.title];
+    }
 }
 
-export { createProject }
+export { Project };

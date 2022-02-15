@@ -1,73 +1,68 @@
-import { createStructurer } from "./structurer"
-import { createProject } from "./project-object"
+import { Project } from "./project-object";
+import { domInterfacer } from "./dom-interfacer";
 import { isAfter, isBefore, isSameDay, parseISO } from "date-fns";
 
-const projectStructurer = (() => {
-    const title = 'Projects'
-    const containType = "project"
-    const proto = createStructurer(containType)
-    //default inbox project setup
-    const inbox = createProject({"title": "Inbox"})
-    proto.add(inbox)
-    const activeProject = proto.container[inbox.title]
+class ProjectStructurer extends Project{
+    static containClass = Project.name.toLowerCase();
+    activeProject;
 
-    function add(object){
-        if (object.type !== containType){
-            return this.activeProject.add(object)
+    constructor(parametersObject){
+        super(parametersObject);
+        this.createDomElement = domInterfacer.createProjectList;
+        this._domElement = this.createDomElement(this);
+    }
+
+    get activeProject() {
+        return this.activeProject;
+    }
+    set activeProject(project){
+        this.activeProject = project;
+    }
+
+    add(object){
+        if (object.constructor.name.toLowerCase() != ProjectStructurer.containClass){
+            return this.activeProject.add(object);
         }
         else {
-            return proto.add(object)
+            return super.add(object);
+        }
+    }
+    remove(object){
+        if (object.constructor.name.toLowerCase() !== ProjectStructurer.containClass){
+            return this.activeProject.remove(object);
+        }
+        else {
+            return super.remove(object);
         }
     }
 
-    function remove(object){
-        if (object.type !== containType){
-            return this.activeProject.remove(object)
-        }
-        else {
-            return proto.remove(object)
-        }
-    }
-
-    function filterTodos(filterFunction, ...args){
-        const filteredContainer = {}
+    filterTodos(filterFunction, ...args){
+        const filteredContainer = {};
         Object.values(this.container).forEach(project => {
-            const title = project.title
-            const copyProject = createProject({title})
+            const title = project.title;
+            const copyProject = new Project({title});
             Object.values(project.container).forEach(todo => {
-                if (filterFunction.apply(todo, args)) copyProject.add(todo)
-            })
-            filteredContainer[copyProject.title] = copyProject
-        })
-        return filteredContainer 
+                if (filterFunction.apply(todo, args)) copyProject.add(todo);
+            });
+            filteredContainer[copyProject.title] = copyProject;
+        });
+        return filteredContainer;
     }
 
-    function isInDateRange(startDate, endDate){
-        const isoDate = parseISO(this.date)
-        return isBefore(isoDate, endDate) && isAfter(isoDate, startDate)
+    static isInDateRange(startDate, endDate){
+        const isoDate = parseISO(this.date);
+        return isBefore(isoDate, endDate) && isAfter(isoDate, startDate);
     }
 
-    function isOnDate(date){
-        const isoDate = parseISO(this.date)
-        return (isSameDay(isoDate, date))
+    static isOnDate(date){
+        const isoDate = parseISO(this.date);
+        return (isSameDay(isoDate, date));
     }
+}
 
-    return Object.assign({}, proto, {
-        add,
-        remove,
-        filterTodos,
-        isInDateRange,
-        isOnDate,
-        get activeProject() {
-            return activeProject
-        },
-        set activeProject(project){
-            activeProject = project
-        },
-        get title() {
-            return title
-        }
-    })
-})()
+const projectStructurer = new ProjectStructurer({title: "Projects"});
+const inbox = new Project({"title": "Inbox"});
+projectStructurer.add(inbox);
+projectStructurer.activeProject = inbox;
 
-export { projectStructurer }
+export { ProjectStructurer, projectStructurer };

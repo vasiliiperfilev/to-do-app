@@ -1,25 +1,25 @@
-import { createBaseObject } from "./base-object"
-import { domInterfacer } from "./dom-interfacer"
+import { BaseObject } from "./base-object";
+import { domInterfacer } from "./dom-interfacer";
 
-function createTodo(parametersObject) {
-    let title = parametersObject.title
-    let date = parametersObject.date || ""
-    let isFinished = parametersObject.isFinished || false;
-    let type = "todo"
 
-    const proto = createBaseObject(type, title, domInterfacer.createTodoLi.bind(parametersObject))
+class Todo extends BaseObject{
+    date;
+    isFinished;
 
-    return Object.assign({}, proto, { 
-        date,
-        isFinished,
-        allData: function(){
-            const title = this.title
-            const date = this.date
-            const isFinished = this.isFinished
-            return { title, date, isFinished }
-        },
-    })
+    constructor (parametersObject){
+        super(parametersObject.title);
+        this.date = parametersObject.date;
+        this.isFinished = parametersObject.isFinished;
+        this.createDomElement = domInterfacer.createTodoLi;
+        this._domElement = this.createDomElement(this);
+    }
 
+    get allData(){
+        const title = this.title;
+        const date = this.date;
+        const isFinished = this.isFinished;
+        return { title, date, isFinished };
+    }
 }
 
-export { createTodo }
+export { Todo };

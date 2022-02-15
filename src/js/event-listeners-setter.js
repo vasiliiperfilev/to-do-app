@@ -1,70 +1,70 @@
-import { domInterfacer } from "./dom-interfacer"
-import { projectStructurer } from "./project-structurer"
-import { createTodo } from "./todo-object"
-import { createProject } from "./project-object"
+import { domInterfacer } from "./dom-interfacer";
+import { ProjectStructurer, projectStructurer } from "./project-structurer";
+import { Todo } from "./todo-object";
+import { Project } from "./project-object";
 import { setAddBtn, setClosePopupBtn, setDateInput, setRemoveIcon, 
-    setTitle, setTitleInput, setPopupAddBtn, setTodoIcon, showAllTodoByFilter } from './event-listener-functions'
+    setTitle, setTitleInput, setPopupAddBtn, setTodoIcon, showAllTodoByFilter } from './event-listener-functions';
 
 const eventListenerSetter = (() => {
 
-    function setListEventListeners(listContainer, createFunction, setupFunction) {
-        const listInterface = domInterfacer.getListUiElements(listContainer)
-        setAddBtn(listInterface)
-        setClosePopupBtn(listInterface)
-        setPopupAddBtn(listInterface, createFunction, setupFunction)
+    function setListEventListeners(listContainer, objClass, setupFunction) {
+        const listInterface = domInterfacer.getListUiElements(listContainer);
+        setAddBtn(listInterface);
+        setClosePopupBtn(listInterface);
+        setPopupAddBtn(listInterface, objClass, setupFunction);
     }
 
     function chooseProject() {
-        const title = this.querySelector("span").textContent
-        projectStructurer.activeProject = projectStructurer.container[title]
-        showActiveProject()
+        const title = this.querySelector("span").textContent;
+        projectStructurer.activeProject = projectStructurer.container[title];
+        showActiveProject();
     }
 
     function showActiveProject(){
-        const project = projectStructurer.activeProject
-        domInterfacer.selectObjectElement(project.liElement, "project")
-        const projectPage = domInterfacer.createProjectPage(project)
-        setListEventListeners(projectPage, createTodo, setTodoListeners)
-        domInterfacer.projectWindow.innerHTML = ""
-        domInterfacer.projectWindow.appendChild(projectPage)
+        const project = projectStructurer.activeProject;
+        domInterfacer.selectObjectElement(project.domElement, "project");
+        const projectPage = domInterfacer.createProjectPage(project);
+        setListEventListeners(projectPage, Todo, setTodoListeners);
+        domInterfacer.projectWindow.innerHTML = "";
+        domInterfacer.projectWindow.appendChild(projectPage);
     }
 
     function setProjectListeners(project){
-        setRemoveIcon(domInterfacer.getLiChildren(project.liElement).removeIcon, project)
-        project.liElement.addEventListener("click", function(){
-            chooseProject.call(this)
-            showActiveProject()
-        })
+        setRemoveIcon(domInterfacer.getLiChildren(project.domElement).removeIcon, project);
+        project.domElement.addEventListener("click", function(){
+            chooseProject.call(this);
+            showActiveProject();
+        });
     }
 
     function setTodoListeners(todo){
-        const liChildren = domInterfacer.getLiChildren(todo.liElement)
-        setRemoveIcon(liChildren.removeIcon, todo)
-        setTitle(liChildren.title, liChildren.titleInput, todo)
-        setTitleInput(liChildren.title, liChildren.titleInput, todo)
-        setTodoIcon(liChildren.itemIcon, todo)
-        setDateInput(liChildren.dateInput, todo)
+        const liChildren = domInterfacer.getLiChildren(todo.domElement);
+        setRemoveIcon(liChildren.removeIcon, todo);
+        setTitle(liChildren.title, liChildren.titleInput, todo);
+        setTitleInput(liChildren.title, liChildren.titleInput, todo);
+        setTodoIcon(liChildren.itemIcon, todo);
+        setDateInput(liChildren.dateInput, todo);
     }
 
-    function setDateFilters(liElement, filterFunction, ...filterArgs){
-        liElement.addEventListener("click", (event) => {
-            domInterfacer.selectClosestProjectLi(event)
-            showAllTodoByFilter(filterFunction, ...filterArgs)
-        })
+    function setDateFilters(domElement, filterFunction, ...filterArgs){
+        domElement.addEventListener("click", (event) => {
+            domInterfacer.selectClosestProjectLi(event);
+            showAllTodoByFilter(filterFunction, ...filterArgs);
+        });
     }
 
-    function setInbox(liElement){
-        liElement.addEventListener("click", (event) => {
-            chooseProject.call(liElement)
-            domInterfacer.selectClosestProjectLi(event)
-        })
+    function setInbox(domElement){
+        domElement.addEventListener("click", (event) => {
+            chooseProject.call(domElement);
+            domInterfacer.selectClosestProjectLi(event);
+        });
     }
 
     function setStartPageEventListeners(today, weekStart, weekEnd){
-        setListEventListeners(domInterfacer.projectList, createProject, eventListenerSetter.setProjectListeners)
-        setDateFilters(domInterfacer.thisWeek, projectStructurer.isInDateRange, weekStart, weekEnd)
-        setDateFilters(domInterfacer.today, projectStructurer.isOnDate, today)
-        setInbox(domInterfacer.inbox)
+        setListEventListeners(domInterfacer.projectList, Project, eventListenerSetter.setProjectListeners);
+        setDateFilters(domInterfacer.thisWeek, ProjectStructurer.isInDateRange, weekStart, weekEnd);
+        setDateFilters(domInterfacer.today, ProjectStructurer.isOnDate, today);
+        setInbox(domInterfacer.inbox);
     }
     
     return {
@@ -75,7 +75,7 @@ const eventListenerSetter = (() => {
         setDateFilters,
         setInbox,
         setStartPageEventListeners
-    }
-})()
+    };
+})();
 
-export { eventListenerSetter }
+export { eventListenerSetter };

@@ -29,6 +29,6 @@ const selectorHolder = (() => {
     menu: "menu",
     done: "done"
     }
-})()
+})();
 
-export { selectorHolder }
+export { selectorHolder };
