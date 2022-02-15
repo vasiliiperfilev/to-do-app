@@ -76,6 +76,7 @@ function createDomListFunctions() {
         changeTodoIcon(this, li);
         const titleInput = domFunctions.createInput([selectorHolder.todo, selectorHolder.inputTitle, selectorHolder.hidden], "title", "text");
         const dateInput = domFunctions.createInput([selectorHolder.todo, selectorHolder.inputDate], "date", "date");
+        dateInput.placeholder = "yyyy-mm-dd";
         dateInput.value = this.date;
         liChildren.anchor.append(titleInput);
         liChildren.rightDiv.prepend(dateInput);
