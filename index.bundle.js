@@ -1652,16 +1652,16 @@ function createBaseObject(type, title, createLiElementFunction) {
     changeTitle(title)
     return {
         type,
-        className: "",
+        cssClassName: "",
         changeTitle,
-        classNameToTitle: function () {
-            return this.className.substring(1).replace(/-/g, ' ')
+        cssClassNameToTitle: function () {
+            return this.cssClassName.substring(1).replace(/-/g, ' ')
         },
-        titleToClassName: function () {
-            this.className = "c" + this.title.replace(/\W/g, "-")
-            return this.className
+        titleToCssClassName: function () {
+            this.cssClassName = "c" + this.title.replace(/\W/g, "-")
+            return this.cssClassName
         },
-        get liElement() {
+        get domElement() {
             return createLiElementFunction(this)
         },
         get title(){
@@ -1698,7 +1698,7 @@ __webpack_require__.r(__webpack_exports__);
 const controller = (() => {
 
     function removeObject(object, objectList){
-        objectList.removeChild(object.liElement)
+        objectList.removeChild(object.domElement)
         _project_structurer__WEBPACK_IMPORTED_MODULE_1__.projectStructurer.remove(object)
     }
 
@@ -1712,7 +1712,7 @@ const controller = (() => {
 
     function addObject(object, objectList, setupFunction){
         try{
-            const objectElement = object.liElement
+            const objectElement = object.domElement
             setupFunction(object)
             objectList.appendChild(objectElement)
         }
@@ -1868,8 +1868,8 @@ const domInterfacer = (() => {
     function createProjectDiv(project){
         const elements = domFunctions.createDivUlElements(project, "h1")
         const div = elements.div
-        elements.header.classList.add(project.titleToClassName())
-        elements.ul.classList.add(project.titleToClassName())
+        elements.header.classList.add(project.titleToCssClassName())
+        elements.ul.classList.add(project.titleToCssClassName())
         return div
     }
 
@@ -1987,9 +1987,9 @@ function createDomListFunctions() {
 
     function createLi(object) {
         const li = document.createElement("li")
-        li.classList.add(`${object.titleToClassName()}`, object.type)
+        li.classList.add(`${object.titleToCssClassName()}`, object.constructor.name.toLowerCase())
         const link = document.createElement("a")
-        link.href = `#${object.titleToClassName()}`
+        link.href = `#${object.titleToCssClassName()}`
         const span = document.createElement("span")
         span.innerText = object.title
         const rightDiv = domFunctions.createDiv([_selectorHolder__WEBPACK_IMPORTED_MODULE_1__.selectorHolder.rightDiv])
@@ -2061,7 +2061,7 @@ function createDomListFunctions() {
         const ul = document.createElement("ul")
         for (const key in object.container) {
             const element = object.container[key]
-            const li = element.liElement
+            const li = element.domElement
             li.classList.remove(_selectorHolder__WEBPACK_IMPORTED_MODULE_1__.selectorHolder.hidden)
             ul.appendChild(li)
         }
@@ -2069,12 +2069,12 @@ function createDomListFunctions() {
     }
 
     function changeTodoLiTitle(todo, titleInput){
-        const li = todo.liElement
-        li.classList.remove(todo.titleToClassName())
+        const li = todo.domElement
+        li.classList.remove(todo.titleToCssClassName())
         todo.changeTitle(titleInput.value)
         getLiChildren(li).title.textContent = todo.title
-        li.classList.add(todo.titleToClassName())
-        getLiChildren(li).anchor.href = `#${todo.titleToClassName()}`
+        li.classList.add(todo.titleToCssClassName())
+        getLiChildren(li).anchor.href = `#${todo.titleToCssClassName()}`
     }
 
     function createHeader(object, headerTag){
@@ -2084,7 +2084,7 @@ function createDomListFunctions() {
     }
 
     function createDivUlElements(project, headerTag){
-        const div = domFunctions.createDiv([_selectorHolder__WEBPACK_IMPORTED_MODULE_1__.selectorHolder.list, project.containType])
+        const div = domFunctions.createDiv([_selectorHolder__WEBPACK_IMPORTED_MODULE_1__.selectorHolder.list, project.containClass])
         const header = createHeader(project, headerTag)
         const ul = createUl(project)
         div.append(header, ul)
@@ -2164,7 +2164,7 @@ function setRemoveIcon(removeIcon, object){
         const ul = event.target.closest("ul")
         _controller__WEBPACK_IMPORTED_MODULE_1__.controller.removeObject(object, ul)
         _storage__WEBPACK_IMPORTED_MODULE_2__.storage.populateStorage()
-        if (object.type == "project") _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.inbox.click()
+        if (object.constructor.name.toLowerCase() == "project") _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.inbox.click()
     })
 }
 
@@ -2254,7 +2254,7 @@ const eventListenerSetter = (() => {
 
     function showActiveProject(){
         const project = _project_structurer__WEBPACK_IMPORTED_MODULE_1__.projectStructurer.activeProject
-        _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.selectObjectElement(project.liElement, "project")
+        _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.selectObjectElement(project.domElement, "project")
         const projectPage = _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.createProjectPage(project)
         setListEventListeners(projectPage, _todo_object__WEBPACK_IMPORTED_MODULE_2__.createTodo, setTodoListeners)
         _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.projectWindow.innerHTML = ""
@@ -2262,15 +2262,15 @@ const eventListenerSetter = (() => {
     }
 
     function setProjectListeners(project){
-        (0,_event_listener_functions__WEBPACK_IMPORTED_MODULE_4__.setRemoveIcon)(_dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.getLiChildren(project.liElement).removeIcon, project)
-        project.liElement.addEventListener("click", function(){
+        (0,_event_listener_functions__WEBPACK_IMPORTED_MODULE_4__.setRemoveIcon)(_dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.getLiChildren(project.domElement).removeIcon, project)
+        project.domElement.addEventListener("click", function(){
             chooseProject.call(this)
             showActiveProject()
         })
     }
 
     function setTodoListeners(todo){
-        const liChildren = _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.getLiChildren(todo.liElement)
+        const liChildren = _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.getLiChildren(todo.domElement)
         ;(0,_event_listener_functions__WEBPACK_IMPORTED_MODULE_4__.setRemoveIcon)(liChildren.removeIcon, todo)
         ;(0,_event_listener_functions__WEBPACK_IMPORTED_MODULE_4__.setTitle)(liChildren.title, liChildren.titleInput, todo)
         ;(0,_event_listener_functions__WEBPACK_IMPORTED_MODULE_4__.setTitleInput)(liChildren.title, liChildren.titleInput, todo)
@@ -2278,16 +2278,16 @@ const eventListenerSetter = (() => {
         ;(0,_event_listener_functions__WEBPACK_IMPORTED_MODULE_4__.setDateInput)(liChildren.dateInput, todo)
     }
 
-    function setDateFilters(liElement, filterFunction, ...filterArgs){
-        liElement.addEventListener("click", (event) => {
+    function setDateFilters(domElement, filterFunction, ...filterArgs){
+        domElement.addEventListener("click", (event) => {
             _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.selectClosestProjectLi(event)
             ;(0,_event_listener_functions__WEBPACK_IMPORTED_MODULE_4__.showAllTodoByFilter)(filterFunction, ...filterArgs)
         })
     }
 
-    function setInbox(liElement){
-        liElement.addEventListener("click", (event) => {
-            chooseProject.call(liElement)
+    function setInbox(domElement){
+        domElement.addEventListener("click", (event) => {
+            chooseProject.call(domElement)
             _dom_interfacer__WEBPACK_IMPORTED_MODULE_0__.domInterfacer.selectClosestProjectLi(event)
         })
     }
@@ -2336,8 +2336,8 @@ __webpack_require__.r(__webpack_exports__);
 function createProject(parametersObject) {
     let type = "project"
     
-    const containType = "todo"
-    const proto1 = (0,_structurer__WEBPACK_IMPORTED_MODULE_0__.createStructurer)(containType)
+    const containClass = "todo"
+    const proto1 = (0,_structurer__WEBPACK_IMPORTED_MODULE_0__.createStructurer)(containClass)
     const proto2 = (0,_base_object__WEBPACK_IMPORTED_MODULE_1__.createBaseObject)(type, parametersObject.title, _dom_interfacer__WEBPACK_IMPORTED_MODULE_3__.domInterfacer.createProjectLi)
 
     return Object.assign({}, proto1, proto2)
@@ -2369,15 +2369,15 @@ __webpack_require__.r(__webpack_exports__);
 
 const projectStructurer = (() => {
     const title = 'Projects'
-    const containType = "project"
-    const proto = (0,_structurer__WEBPACK_IMPORTED_MODULE_0__.createStructurer)(containType)
+    const containClass = "project"
+    const proto = (0,_structurer__WEBPACK_IMPORTED_MODULE_0__.createStructurer)(containClass)
     //default inbox project setup
     const inbox = (0,_project_object__WEBPACK_IMPORTED_MODULE_1__.createProject)({"title": "Inbox"})
     proto.add(inbox)
     const activeProject = proto.container[inbox.title]
 
     function add(object){
-        if (object.type !== containType){
+        if (object.constructor.name.toLowerCase() !== containClass){
             return this.activeProject.add(object)
         }
         else {
@@ -2386,7 +2386,7 @@ const projectStructurer = (() => {
     }
 
     function remove(object){
-        if (object.type !== containType){
+        if (object.constructor.name.toLowerCase() !== containClass){
             return this.activeProject.remove(object)
         }
         else {
@@ -2609,7 +2609,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createStructurer": () => (/* binding */ createStructurer)
 /* harmony export */ });
-function createStructurer(containType) {
+function createStructurer(containClass) {
     const container = {}
     function add(object){
         if (object.title in container) return false
@@ -2625,8 +2625,8 @@ function createStructurer(containType) {
         get container() {
             return container
         },
-        get containType() {
-            return containType
+        get containClass() {
+            return containClass
         }
     }
 }
