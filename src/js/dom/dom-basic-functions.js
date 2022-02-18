@@ -37,7 +37,7 @@ function createDomFunctions(){
         const parameters = {};
         const inputs = form.querySelectorAll("input");
         inputs.forEach(input => {
-            if (input.type == "text") input.value = input.value.replace(/[^a-z\d]/, ' ');
+            if (input.type == "text") input.value = input.value.replace(/[^a-zA-Z\d]/, ' ');
             parameters[input.name] = input.value;
         });
 
