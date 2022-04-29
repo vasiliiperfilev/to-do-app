@@ -1,6 +1,6 @@
 import { domInterfacer } from "../dom/dom-interfacer";
-import { controller } from "../high-order-functions/controller";
-import { storage } from "../high-order-functions/storage";
+import { controller } from "../main-objects/controller";
+import { storage } from "../main-objects/storage";
 import { projectStructurer } from "../classes/project-structurer-class";
 
 function setAddBtn(listInterface){
